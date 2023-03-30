@@ -1,0 +1,86 @@
+@layout('layouts/app')
+
+@section('content')
+<div class="mt-24 sm:mx-auto sm:w-full sm:max-w-md">
+  <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+    <p class="mb-6 text-2xl text-gray-500 text-center">Créer un nouveau compte</p>
+
+    <form class="space-y-4" action="{{ route('RegisterController.store') }}" method="POST">
+      {{ csrfField() }}
+
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-500">
+          Nom
+        </label>
+        <div class="mt-1">
+          <input id="name" name="name" type="text"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('name') || '' }}">
+        </div>
+
+        @if (flashMessages.has('errors.name'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.name') }}
+        </p>
+        @endif
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-500">
+          adresse E-mail
+        </label>
+        <div class="mt-1">
+          <input id="email" name="email" type="email"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('email') || '' }}">
+        </div>
+
+        @if (flashMessages.has('errors.email'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.email') }}
+        </p>
+        @endif
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-500">
+          Mot de passe
+        </label>
+        <div class="mt-1">
+          <input id="password" name="password" type="password"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm">
+        </div>
+
+        @if (flashMessages.has('errors.password'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.password') }}
+        </p>
+        @endif
+      </div>
+
+      <div>
+        <label for="password_confirmation" class="block text-sm font-medium text-gray-500">
+          Confirmation de mot de passe
+        </label>
+        <div class="mt-1">
+          <input id="password_confirmation" name="password_confirmation" type="password"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm">
+        </div>
+
+        @if (flashMessages.has('errors.password_confirmation'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.password_confirmation') }}
+        </p>
+        @endif
+      </div>
+
+      <div>
+        <button type="submit"
+          class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-emerald-400 hover:bg-emerald-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-700">
+          M'inscrire
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+@endsection

@@ -1,0 +1,253 @@
+@layout('layouts/app')
+
+@section('content')
+
+
+<style>
+  #chart {
+    max-width: 650px;
+    margin: 35px auto;
+  }
+</style>
+<div class="m-2">
+
+  {{-- Changement des variables de Gaz --}}
+  <div class="flex flex-wrap">
+    <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+
+      <div
+        class=" transform hover:scale-110 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+        <div class=" flex justify-around  text-center">
+
+          <p class=" font-bold mb-4 text-slate-400  shadow p-2 rounded-lg"> <i class="fas fas-up-arrow"></i>
+            {{lastPrice}} €/kw </p>
+          <p class=" font-bold mb-4 text-slate-400 shadow p-2 rounded-lg"><i
+              class="fas fas-arrow-down"></i>{{lastPrice}} €/kw </p>
+        </div>
+
+        <p class="text-emerald-600 text-lg text-bold"> Electrcité</p>
+        <p class="text-white bg-emerald-400 text-sm rounded text-center m-2.5 py-2 "> 2023-20-13 07:55</p>
+      </div>
+      <div class="flex flex-wrap">
+        <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+          <div
+            class="transform hover:scale-110 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+            <h2 class="text-base font-bold mb-4 text-slate-400 shadow p-2 rounded-lg">{{lastPrice}} €/kw</h2>
+            <p class="text-gray-400 text-lg text-bold"> Pétrole</p>
+            <p class="text-white  bg-emerald-400 text-sm rounded text-center m-2.5 py-2 "> 2023-20-13 07:55</p>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+
+          <div
+            class="transform hover:scale-110 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+            <h2 class="text-base font-bold mb-4 text-slate-400 shadow p-2 rounded-lg">{{lastPrice}} €/kw</h2>
+            <p class="text-gray-400 text-lg text-bold"> Pétrole</p>
+            <p class="text-white  bg-emerald-400 text-sm rounded text-center m-2.5 py-2 "> 2023-20-13 07:55</p>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+
+          <div
+            class="transform hover:scale-110 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+            <h2 class="text-base font-bold mb-4 text-slate-400 shadow p-2 rounded-lg">{{lastPrice}} €/kw</h2>
+            <p class="text-gray-400 text-lg text-bold"> Pétrole</p>
+            <p class="text-white  bg-emerald-400 text-sm rounded text-center m-2.5 py-2 "> 2023-20-13 07:55</p>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+
+          <div
+            class="transform hover:scale-110 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+            <h2 class="text-base font-bold mb-4 text-slate-400 shadow p-2 rounded-lg">{{lastPrice}} €/kw</h2>
+            <p class="text-gray-400 text-lg text-bold"> Pétrole</p>
+            <p class="text-white  bg-emerald-400 text-sm rounded text-center m-2.5 py-2 "> 2023-20-13 07:55</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+
+      <div class="transform transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+        <h2 class="text-base font-bold mb-4   shadow bg-slate-100 p-2 rounded-lg "> <i
+            class="animate-pulse duration-75 fas fa-arrow-up"> 0.00 €/kw
+          </i> </h2>
+        <select id="periodes2"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-light-700 dark:border-none dark:placeholder-gray-400 dark:text-slate-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected> Selectionner un interval</option>
+          <option value="1">Journalier</option>
+          <option value="2">Menstuel</option>
+          <option value="3">Annuel</option>
+        </select>
+        <div id="chart2" class="text-white"> </div>
+      </div>
+    </div>
+
+
+
+    {{-- Changement des variables de l'Electrcité --}}
+
+    <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+
+      <div class="transform transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+        <h2 class="text-base font-bold mb-4 text-slate-400 shadow p-2 rounded-lg">{{lastPrice}} €/kw</h2>
+        <select id="periodes1"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-light-700 dark:border-none dark:placeholder-gray-400 dark:text-slate-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected> Selectionner un interval</option>
+          <option value="1">Journalier</option>
+          <option value="2">Menstuel</option>
+          <option value="3">Annuel</option>
+        </select>
+        <div id="chart1"> </div>
+      </div>
+    </div>
+    <div class="w-full md:w-1/2 lg:w-1/1 p-2">
+
+      <div
+        class="transform hover:scale-110 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+        <h2 class="text-base font-bold mb-4 text-slate-400 shadow p-2 rounded-lg">{{lastPrice}} €/kw</h2>
+        <p class="text-gray-400 text-lg text-bold"> Pétrole</p>
+        <p class="text-white  bg-emerald-400 text-sm rounded text-center m-2.5 py-2 "> 2023-20-13 07:55</p>
+      </div>
+      <div class="flex flex-wrap">
+        <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+          <div
+            class="transform hover:scale-110 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+            <h2 class="text-base font-bold mb-4 text-slate-400 shadow p-2 rounded-lg">{{lastPrice}} €/kw</h2>
+            <p class="text-gray-400 text-lg text-bold"> Pétrole</p>
+            <p class="text-white  bg-emerald-400 text-sm rounded text-center m-2.5 py-2 "> 2023-20-13 07:55</p>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+
+          <div
+            class="transform hover:scale-110 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+            <h2 class="text-base font-bold mb-4 text-slate-400 shadow p-2 rounded-lg">{{lastPrice}} €/kw</h2>
+            <p class="text-gray-400 text-lg text-bold"> Pétrole</p>
+            <p class="text-white  bg-emerald-400 text-sm rounded text-center m-2.5 py-2 "> 2023-20-13 07:55</p>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+
+          <div
+            class="transform hover:scale-110 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+            <h2 class="text-base font-bold mb-4 text-slate-400 shadow p-2 rounded-lg">{{lastPrice}} €/kw</h2>
+            <p class="text-gray-400 text-lg text-bold"> Pétrole</p>
+            <p class="text-white  bg-emerald-400 text-sm rounded text-center m-2.5 py-2 "> 2023-20-13 07:55</p>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+
+          <div
+            class="transform hover:scale-110 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+            <h2 class="text-base font-bold mb-4 text-slate-400 shadow p-2 rounded-lg">{{lastPrice}} €/kw</h2>
+            <p class="text-gray-400 text-lg text-bold"> Pétrole</p>
+            <p class="text-white  bg-emerald-400 text-sm rounded text-center m-2.5 py-2 "> 2023-20-13 07:55</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full md:w-1/2 lg:w-full p-2">
+
+      <div
+        class="transform hover:scale-110 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+        <h2 class="text-base font-bold mb-4 text-slate-400 shadow p-2 rounded-lg">{{lastPrice}} €/kw</h2>
+        <p class="text-gray-400 text-lg text-bold"> Pétrole</p>
+        <p class="text-white  bg-emerald-400 text-sm rounded text-center m-2.5 py-2 "> 2023-20-13 07:55</p>
+      </div>
+      <div class="flex flex-wrap">
+        <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+          <div
+            class="transform hover:scale-110 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+            <h2 class="text-base font-bold mb-4 text-slate-400 shadow p-2 rounded-lg">{{lastPrice}} €/kw</h2>
+            <p class="text-gray-400 text-lg text-bold"> Pétrole</p>
+            <p class="text-white  bg-emerald-400 text-sm rounded text-center m-2.5 py-2 "> 2023-20-13 07:55</p>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+          <div
+            class="transform hover:scale-110 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+            <h2 class="text-base font-bold mb-4 text-slate-400 shadow p-2 rounded-lg">{{lastPrice}} €/kw</h2>
+            <p class="text-gray-400 text-lg text-bold"> Pétrole</p>
+            <p class="text-white  bg-emerald-400 text-sm rounded text-center m-2.5 py-2 "> 2023-20-13 07:55</p>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+          <div
+            class="transform hover:scale-110 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+            <h2 class="text-base font-bold mb-4 text-slate-400 shadow p-2 rounded-lg">{{lastPrice}} €/kw</h2>
+            <p class="text-gray-400 text-lg text-bold"> Pétrole</p>
+            <p class="text-white  bg-emerald-400 text-sm rounded text-center m-2.5 py-2 "> 2023-20-13 07:55</p>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+          <div
+            class="transform hover:scale-110 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+            <h2 class="text-base font-bold mb-4 text-slate-400 shadow p-2 rounded-lg">{{lastPrice}} €/kw</h2>
+            <p class="text-gray-400 text-lg text-bold"> Pétrole</p>
+            <p class="text-white  bg-emerald-400 text-sm rounded text-center m-2.5 py-2 "> 2023-20-13 07:55</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script>
+      let periodes = document.querySelector('#periodes1','#periodes2')
+        periodes.addEventListener('change', () => {
+        
+        window.location.href = `/dashboard/${periodes.value}`
+        
+        });
+
+
+
+        let dates = "{{ main }}";
+        var options1 = {
+        chart: {
+        type: 'line'
+        },
+        series: [{
+        name: 'sales',
+        data: [{{ prix }}]
+        
+        }],
+        xaxis: {
+        categories: dates.split(',')
+        },
+        colors: ['#34d399'] // New color scheme for the chart
+        }
+        
+        var chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
+        
+        chart1.render();
+
+        var options2 = {
+        chart: {
+        type: 'line'
+        },
+        series: [{
+        name: 'sales',
+        data: [{{ prix }}]
+        
+        }],
+        xaxis: {
+        categories: dates.split(',')
+        },
+        colors: ['#34d399']
+        }
+        
+        var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+        
+        chart2.render();
+
+    </script>
+
+  </div>
+
+
+
+  <script src="js/apexcharts.min.js"></script>
+
+  @endsection
