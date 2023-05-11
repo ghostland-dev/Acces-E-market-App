@@ -32,7 +32,7 @@ export default class PasswordResetRequestController {
     session.flash({
       notification: {
         type: 'success',
-        message: 'A password reset link has been sent to your email address.',
+        message: 'Un lien pour réinitialiser votre mot de passe a été envoyé vers votre boîte mail.',
       },
     })
 

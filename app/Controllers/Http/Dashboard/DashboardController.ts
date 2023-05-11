@@ -1,63 +1,87 @@
-import { Router } from '@adonisjs/core/build/standalone';
+import Mail from '@ioc:Adonis/Addons/Mail'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import axios, { AxiosResponse } from 'axios';
-import moment from 'moment';
+import Alert from 'App/Models/Alert'
 
-let calendarElec = (year = actualYear, type = "B") => {
-  return `"/E.F7${type}YF${year}"`
-}
+import axios, { AxiosResponse } from 'axios'
 
-const date = new Date()
-const now = new Date()
-const year = now.getFullYear()
-const month = String(now.getMonth() + 1).padStart(2, '0')
-const day = String(now.getDate()).padStart(2, '0')
-const actualYear = (date.getFullYear()).toString().slice(2)
 
+const url = 'http://127.0.0.1:3333'
+const date = new Date().toISOString().slice(0, 10)
+const thisYear = parseInt(new Date().toISOString().slice(2, 4))
 
 export default class DashboardController {
   public async dashboard({ view, params }: HttpContextContract) {
-    let noData = 'En attente des données'
-    const { id } = params;
-    let petrole, charbon, co2, electrcite, electcityData, gaz, drivers, gazData
 
-    if (id != null) {
 
-      petrole = await axios.get('http://127.0.0.1:3333/api/v1/e-market/petrole/period/' + id + "");
-      charbon = await axios.get('http://127.0.0.1:3333/api/v1/e-market/charbon/period/' + id + "");
-      co2 = await axios.get('http://127.0.0.1:3333/api/v1/e-market/co2/period/' + id + "");
-    } else {
-      petrole = await axios.get('http://127.0.0.1:3333/api/v1/e-market/petrole/period/1');
-      charbon = await axios.get('http://127.0.0.1:3333/api/v1/e-market/charbon/period/1');
-      co2 = await axios.get('http://127.0.0.1:3333/api/v1/e-market/co2/period/1');
+
+
+    const { id } = params
+    let electrcite: AxiosResponse<any, any>, gaz: AxiosResponse<any, any>, driversLatest: { charbon: any; petrole: any; co2: any }
+
+    function calculateAverage(numbers: any[]) {
+      const sum = numbers.reduce((a, b) => a + b, 0)
+      const avg = Math.round(sum / numbers.length)
+      return avg
     }
 
-    //FIXME: 
-    electrcite = await axios.get(`http://127.0.0.1:3333/api/v1/elec/futur/debut/2022-02-01/fin/2023-03-31/Days/First/24/P`)
-    gaz = await axios.get('http://127.0.0.1:3333/api/v1/gaz/futur/start/2022-01-01/end/2023-02-01/Days/First/24');
-    
+    const [petrole, charbon, co2] = await Promise.all([
+      axios.get(url + '/api/v1/e-market/petrole/period/' + (id || 1)),
+      axios.get(url + '/api/v1/e-market/charbon/period/' + (id || 1)),
+      axios.get(url + '/api/v1/e-market/co2/period/' + (id || 1)),
+    ])
 
-    // TODO::Finir d'envoyer les données vers le front 
-    electcityData = electrcite.data.results.items
-    gazData = gaz.data.results.items
-    drivers = {
-      charbon: {
-        percentChangeDirection: charbon.data.percentChangeDirection,
-        marketId: charbon.data.marketId,
-        stripDescription: petrole.data.stripDescription == null ? noData : petrole.data.stripDescription,
-        lastPrice: charbon.data.lastPrice == null ? noData : charbon.data.lastPrice + ' €/kw'
+
+    electrcite = await axios.get(url + `/electricite-base-data`)
+    gaz = await axios.get(url + `/api/v1/gaz/futur/start/2022-01-01/end/${encodeURIComponent(date)}/Days/First/${thisYear + 1}`)
+    driversLatest = { charbon: charbon.data.bars[charbon.data.bars.length - 1], petrole: petrole.data.bars[petrole.data.bars.length - 1], co2: co2.data.bars[co2.data.bars.length - 1] }
+
+    const gazPrices = gaz.data.results.items.map((price: { close: any }) => price.close)
+    const gazDates = gaz.data.results.items.map((date: { tradedatetimegmt: any }) => date.tradedatetimegmt)
+    const gazLastBaseload = gazPrices[gazPrices.length - 1]
+    const gazLastDate = gazDates[gazDates.length - 1]
+    const electrciteBaseload = electrcite.data.BaseloadFiltred
+    const electrcitePeakload = electrcite.data.PeakloadFiltred
+    const electrciteDates = electrcite.data.HorodatageFiltred
+    const electrciteLastBaseload = electrcite.data.lastBaseload
+    const electrciteLastPeakload = electrcite.data.lastPeakload
+    const electrciteLastDate = electrcite.data.HorodatageFiltred[electrcite.data.HorodatageFiltred - 1]
+    const energieData = {
+      gaz: {
+        prices: gazPrices,
+        dates: gazDates,
+        lastBaseload: gazLastBaseload,
+        lastDate: gazLastDate,
       },
-      petrole: {
-        percentChangeDirection: petrole.data.percentChangeDirection,
-        marketId: petrole.data.marketId,
-        stripDescription: petrole.data.stripDescription == null ? noData : petrole.data.stripDescription,
-        lastPrice: petrole.data.lastPrice == null ? noData : petrole.data.lastPrice + ' €/kw'
+      electrcite: {
+        baseload: electrciteBaseload,
+        peakload: electrcitePeakload,
+        dates: electrciteDates,
+        lastBaseload: electrciteLastBaseload,
+        lastPeakload: electrciteLastPeakload,
+        lastDate: electrciteLastDate,
       },
-      co2: {
-        percentChangeDirection: co2.data.percentChangeDirection,
-        marketId: co2.data.marketId,
-        stripDescription: petrole.data.stripDescription == null ? noData : petrole.data.stripDescription,
-        lastPrice: co2.data.lastPrice == null ? noData : co2.data.lastPrice + ' €/kw'
+    };
+
+    const variations = {
+      elec: {
+        base: {
+          max: Math.max(...energieData.electrcite.baseload),
+          min: Math.min(...energieData.electrcite.baseload),
+          avg: calculateAverage(energieData.electrcite.baseload),
+
+        },
+        peak: {
+          max: Math.max(...energieData.electrcite.peakload),
+          min: Math.min(...energieData.electrcite.peakload),
+          avg: calculateAverage(energieData.electrcite.peakload),
+        }
+      },
+      gaz: {
+        base: {
+          max: Math.max(...energieData.gaz.prices),
+          min: Math.min(...energieData.gaz.prices),
+          avg: calculateAverage(energieData.gaz.prices),
+        }
       }
     }
 
@@ -65,24 +89,67 @@ export default class DashboardController {
 
 
 
-    // console.log(response.data)
 
-    // let datas = response.data;
-    // let main = [];
-    // let prix = [];
-    // let lastPrice = response.data.settlementPrice
-    // let change = response.data.settlementPrice
-    // if (datas.bars) {
-    //   main = datas.bars.map((bar) => (moment(bar[0], 'ddd MMM DD HH:mm:ss YYYY').format('YYYY-MM-DD')));
-    //   prix = datas.bars.map((bar: any[]) => bar[1]);
+    const { lastBaseload: elecBaseload, lastPeakload: elecPeakload } = energieData.electrcite;
+    const { lastBaseload: gazBaseload } = energieData.gaz;
+
+    const Alerts = await Alert.query()
+      .orWhere((query) => {
+        query.where('min', '<=', elecBaseload)
+          .andWhere('max', '>=', elecBaseload)
+          .andWhere('min', '<=', elecPeakload)
+          .andWhere('max', '>=', elecPeakload)
+          .andWhere('energie', 'electrcite')
+
+
+      })
+
+    // const gazAlerts = await Alert.query().orWhere((query) => {
+    //   query.where('min', '<=', gazBaseload)
+    //     .andWhere('max', '>=', gazBaseload)
+    //     .andWhere('energie', '=', 'gaz');
+
+    // });
+
+    // const co2Alerts = await Alert.query().orWhere((query) => {
+    //   query.where('min', '<=', driversLatest.co2)
+    //     .andWhere('max', '>=', driversLatest.co2)
+    //     .andWhere('energie', '=', 'co2');
+    // });
+
+    // const charbonAlerts = await Alert.query().orWhere((query) => {
+    //   query.where('min', '<=', driversLatest.charbon)
+    //     .andWhere('max', '>=', driversLatest.charbon)
+    //     .andWhere('energie', '=', 'charbon');
+    // });
+
+    // const petroleAlerts = await Alert.query().orWhere((query) => {
+    //   query.where('min', '<=', driversLatest.petrole)
+    //     .andWhere('max', '>=', driversLatest.petrole)
+    //     .andWhere('energie', '=', 'petrole');
+    // });
+
+
+
+    // if (alerts.length > 0) {
+    //   await Mail.send((message) => {
+    //     message
+    //       .to("ismail.mouyahada@gmail.com")
+    //       .subject('Données')
+    //       .htmlView('emails/alert', {
+    //         alerts,
+    //       })
+    //   })
     // }
 
-
-    return view.render('dashboard', { drivers, electcityData, gazData });
+    return view.render('dashboard', { energieData, driversLatest, variations, Alerts })
 
   }
 
-  public async create({ }: HttpContextContract) { }
+  public async notifications({ view }: HttpContextContract) {
+    return view.render('pages/notification/index')
+
+  }
 
   public async store({ }: HttpContextContract) { }
 

@@ -10,7 +10,7 @@ export default class EmailVerificationController {
       session.flash({
         notification: {
           type: 'error',
-          message: 'Verification link is invalid or has expired.',
+          message: 'Le lien de vérification est invalide ou expiré 🤕',
         },
       })
 
@@ -23,7 +23,7 @@ export default class EmailVerificationController {
       session.flash({
         notification: {
           type: 'info',
-          message: 'Email address already verified.',
+          message: 'Cette adresse E-mail est préalablement vérifié. 🤔',
         },
       })
 
@@ -36,7 +36,7 @@ export default class EmailVerificationController {
     session.flash({
       notification: {
         type: 'success',
-        message: 'Email address verified.',
+        message: '✅ l\'adresse mail verifié avec succès. 🥳',
       },
     })
 
@@ -56,7 +56,7 @@ export default class EmailVerificationController {
       session.flash({
         notification: {
           type: 'info',
-          message: 'Email address arealdy verified.',
+          message: 'Cette adresse E-mail est déjà vérifié. 🤔',
         },
       })
 
@@ -69,7 +69,7 @@ export default class EmailVerificationController {
       notification: {
         type: 'success',
         message:
-          'A verification link has been sent to your email address, kindly follow the link to verify your email address.',
+          'un lien de vérification a été envoyé vers votre boîte mail, veillez consulter votre boîte mail.',
       },
     })
 

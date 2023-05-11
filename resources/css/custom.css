@@ -1,4 +1,61 @@
+* p,
+* h1,
+* h2,
+* h3,
+* h4,
+* h5,
+* h6 {
+  font-family: comfortaa;
+}
+
 #chart {
   max-width: 650px;
   margin: 35px auto;
+}
+
+* {
+  /* font-family: Arial, Helvetica, sans-serif !important; */
+}
+
+.popup-notif {
+  position: sticky;
+  float: right;
+  top: 91%;
+  z-index: 10000;
+  background-color: #13deba;
+  height: 3em;
+  color: white;
+  width: 3em;
+  border-radius: 50%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  transition: all ease-in-out 1s;
+  -webkit-transition: all ease-in-out 1s;
+  -moz-transition: all ease-in-out 1s;
+  -ms-transition: all ease-in-out 1s;
+  -o-transition: all ease-in-out 1s;
+}
+
+input#dateDebut {
+  width: 100%;
+  color: white;
+  text-align: center;
+  font-family: sans-serif;
+  background-color: #34d399;
+  border-radius: 0.5em;
+  margin: 1em;
+  border-color: #cfd0d1;
+}
+
+img.rounded-sm.shadow-sm.m-2 {
+  height: 20em;
+  width: 100%;
+  border-radius: 1em;
+  box-shadow: #e5e5e540 0 0 2px 6px;
 }

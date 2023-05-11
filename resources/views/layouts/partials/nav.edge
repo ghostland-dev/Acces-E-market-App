@@ -21,28 +21,60 @@
 
         <div class="hidden sm:block sm:ml-6">
           <div class="bg-slate-50 rounded-md p-1 px-4  line-clamp-1 space-x-4">
-            <a href="{{ route('dashboard') }}" class="  text-emerald-400  hover:text-gray-900 text-sm font-medium h-2">
+            <a href="{{ route('drivers') }}" class="  text-emerald-400  hover:text-gray-900 text-sm font-medium h-2">
               Drivers</a>
           </div>
         </div>
 
         <div class="hidden sm:block sm:ml-6">
           <div class="bg-slate-50 rounded-md p-1 px-4  line-clamp-1 space-x-4">
-            <a href="{{ route('dashboard') }}" class="  text-emerald-400  hover:text-gray-900 text-sm font-medium h-2">
+            <a href="{{ route('marketElec') }}" class="  text-emerald-400  hover:text-gray-900 text-sm font-medium h-2">
               Marché Electrcité</a>
           </div>
         </div>
 
         <div class="hidden sm:block sm:ml-6">
           <div class="bg-slate-50 rounded-md p-1 px-4  line-clamp-1 space-x-4">
-            <a href="{{ route('dashboard') }}" class="  text-emerald-400   hover:text-gray-900 text-sm font-medium h-2">
+            <a href="{{ route('marketGaz') }}" class="  text-emerald-400   hover:text-gray-900 text-sm font-medium h-2">
               Marché Gaz</a>
+          </div>
+        </div>
+
+        <div class="hidden sm:block sm:ml-6">
+          <div class="bg-slate-50 rounded-md p-1 px-4  line-clamp-1 space-x-4">
+            <a href="{{ route('articles') }}" class="  text-emerald-400   hover:text-gray-900 text-sm font-medium h-2">
+              Articles</a>
+          </div>
+        </div>
+
+        <div class="hidden sm:block sm:ml-6">
+          <div class="bg-slate-50 rounded-md p-1 px-4  line-clamp-1 space-x-4">
+            <a href="{{ route('notifications') }}"
+              class="  text-emerald-400   hover:text-gray-900 text-sm font-medium h-2">
+              Notifications <span class="bg-emerald-400 rounded-full text-white p-1 text-xs w-3">0</span></a>
+          </div>
+        </div>
+
+        <div class="hidden sm:block sm:ml-6">
+          <div class="bg-slate-50 rounded-md p-1 px-4  line-clamp-1 space-x-4">
+            <a href="{{ route('alertes') }}" class="  text-emerald-400   hover:text-gray-900 text-sm font-medium h-2">
+              Alertes</a>
+          </div>
+        </div>
+
+        <div class="hidden sm:block sm:ml-6">
+          <div class="bg-slate-50 rounded-md p-1 px-4  line-clamp-1 space-x-4">
+            <a href="{{ route('utilisateur.index') }}"
+              class="  text-emerald-400   hover:text-gray-900 text-sm font-medium h-2">
+              utilisateurs</a>
           </div>
         </div>
 
         @end
 
       </div>
+
+
 
       <div class="hidden sm:ml-6 sm:block">
         <div class="flex items-center space-x-4">
@@ -56,6 +88,7 @@
               </button>
             </div>
 
+
             <div
               class="   origin-top-right absolute right-0 mt-2 w-56 bg-white border border-gray-100 rounded-md z-50 shadow-md divide-y divide-gray-100 focus:outline-none"
               tabindex="-1" x-show="open">
@@ -66,6 +99,12 @@
                   <i class="fa fa-sign-out-alt fa-lg text-slate-800  "></i> Déconnexion
                 </button>
               </form>
+              <button type="button" data-drawer-target="drawer-swipe" data-drawer-show="drawer-swipe"
+                data-drawer-placement="bottom" data-drawer-edge="true" data-drawer-edge-offset="bottom-[60px]"
+                aria-controls="drawer-swipe"
+                class="w-full text-left px-6 py-2.5 text-sm text-gray-600 hover:bg-gray-100 rounded-sm hover:text-gray-900">
+                <i class="fa fa-menu fa-lg text-slate-800  "></i> Options
+              </button>
             </div>
           </div>
           @else
@@ -99,17 +138,19 @@
 
   <div class="sm:hidden" x-show="open" style="display: none">
     <div class="px-4 py-2.5 space-y-1">
-      <a href="{{ route('dashboard') }}" class="block text-gray-500 hover:text-brand-500">Tableau de bord</a>
-
       @if(auth.isLoggedIn)
-      <div class="block text-gray-500   "> Bonjour {{ auth.user.name }}</div>
+      <div class="block text-gray-500 text-center bg-slate-100 py-1 rounded-md "> Bonjour {{ auth.user.name }}</div>
+      <a href="{{ route('dashboard') }}" class=" p-2 block bg-emerald-400 text-white hover:text-brand-500">Tableau de
+        bord</a>
+
 
       <div class="mt-2">
         <form action="{{ route('AuthController.destroy') }}" method="post">
           {{ csrfField() }}
 
-          <button class="w-full text-left px-6 py-2.5 text-sm text-gray-500 hover:bg-brand-100 hover:text-brand-500">
-            Log out
+          <button
+            class="w-full text-left px-6 py-2.5 text-sm   bg-slate-800 text-white  hover:bg-brand-100 hover:text-brand-500">
+            Déconnexion
           </button>
         </form>
       </div>

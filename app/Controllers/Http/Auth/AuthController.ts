@@ -11,11 +11,12 @@ export default class AuthController {
 
     try {
       await auth.attempt(email, password, remember)
+ 
 
       session.flash({
         notification: {
           type: 'success',
-          message: "Welcome back, you're now signed in.",
+          message: "😉 Ravi de vous revoir, vous êtes connecté avec succès.",
         },
       })
 
@@ -24,7 +25,7 @@ export default class AuthController {
       session.flash({
         notification: {
           type: 'error',
-          message: "We couldn't verify your credentials.",
+          message: "Nous n'avons pas pu verifié vous identifiants.😏",
         },
       })
 

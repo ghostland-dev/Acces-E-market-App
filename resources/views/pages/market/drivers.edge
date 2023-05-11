@@ -1,91 +1,246 @@
 @layout('layouts/app')
 
 @section('content')
+
+<style>
+  #chart {
+    max-width: 650px;
+    margin: 35px auto;
+  }
+</style>
 <div class="m-2">
 
+  {{-- Changement des variables de Gaz --}}
+  <div class="flex flex-wrap">
+    <div class="w-full md:w-1/3 lg:w-1/3 p-2">
+      <div
+        class=" transform hover:scale-95 transition duration-500  mb-4 ease-in-out bg-white rounded-lg shadow p-6 text-center">
+        <h2 class="text-emerald-400 font-bold bg-gray-50 p-3   shadow"><i class="fa fa-fire "></i> Prix de charbon </h2>
+        <div class=" flex justify-evenly  text-center">
+
+          <p class=" font-bold mb-4 text-slate-400  shadow p-4 rounded-lg w-full"> <i
+              class="text-sm text-emerald-300 bg-gray-50 p-3 rounded-full mr-2 fa fa-arrow-up"></i>
+            {{ driversLatest.charbon[1] }} €/kw | <span
+              class="text-sm text-emerald-400 bg-gray-50 p-3 rounded-full mr-2">{{
+              driversLatest.charbon[0] }}</span> <br />
+          </p>
 
 
-  <div class="m-6 bg-white overflow-hidden shadow rounded-lg">
-    <div class="px-4 py-5 sm:p-6  ">
-      <div id="wrapper">
-        <div class="content-area">
-          <div class="container-fluid">
-            <div class="text-right mt-3 mb-3 d-fixed">
+        </div>
+        <h2 class="text-gray-400 font-bold bg-gray-50 p-3 mb-3 shadow">
+          Baseload
+        </h2>
+        <div class=" flex justify-evenly  text-center">
 
+          <p class="text-sm font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"> <span
+              class=" text-emerald-400  p-3 rounded-full mr-2">MIN</span> <br /> {{ variations.charbon.min}}
+            €/kw
+          </p>
+          <p class="text-sm font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"><span
+              class=" text-emerald-400  p-3 rounded-full mr-2">MAX</span> <br /> {{ variations.charbon.max }}
+            €/kw </p>
+          <p class="text-sm font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"><span
+              class=" text-sm text-emerald-400  p-3 rounded-full mr-2">MOY</span> <br /> {{
+            variations.charbon.avg
+            }}
+            €/kw </p>
 
-
-            </div>
-            <div class="main">
-              <div class="row sparkboxes mt-4">
-                <div class="col-md-3">
-                  <div class="box box1">
-                    <div class="details">
-                      <h3>1213</h3>
-                      <h4>CLICKS</h4>
-                    </div>
-                    <div id="spark1"></div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="box box2">
-                    <div class="details">
-                      <h3>422</h3>
-                      <h4>VIEWS</h4>
-                    </div>
-                    <div id="spark2"></div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="box box3">
-                    <div class="details">
-                      <h3>311</h3>
-                      <h4>LEADS</h4>
-                    </div>
-                    <div id="spark3"></div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="box box4">
-                    <div class="details">
-                      <h3>22</h3>
-                      <h4>SALES</h4>
-                    </div>
-                    <div id="spark4"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row mt-4">
-                <div class="col-md-5">
-                  <div class="box shadow mt-4">
-                    <div id="radialBarBottom"></div>
-                  </div>
-                </div>
-                <div class="col-md-7">
-                  <div class="box shadow mt-4">
-                    <div id="line-adwords" class=""></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row mt-4">
-                <div class="col-md-5">
-                  <div class="box shadow mt-4">
-                    <div id="barchart"></div>
-                  </div>
-                </div>
-                <div class="col-md-7">
-                  <div class="box shadow mt-4">
-                    <div id="areachart"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
+      <div class="w-full md:w-full lg:w-full p-2">
+
+        <div class="transform transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+          <h2 class="text-base font-bold mb-4   shadow bg-slate-100 p-2 rounded-lg "> {{driversLatest.charbon[1]}}
+            €/kw
+          </h2>
+
+          <div id="chart1" class="text-slate-800"> </div>
+        </div>
+      </div>
+
+
     </div>
+    <div class="w-full md:w-1/3 lg:w-1/3 p-2">
+
+      <div
+        class=" transform hover:scale-95 transition duration-500  mb-4 ease-in-out bg-white rounded-lg shadow p-6 text-center">
+        <h2 class="text-emerald-400 font-bold bg-gray-50 p-3   shadow"><i class="fa fa-fire "></i> Prix de Pétrole </h2>
+        <div class=" flex justify-evenly  text-center">
+
+          <p class=" font-bold mb-4 text-slate-400  shadow p-4 rounded-lg w-full"> <i
+              class="text-sm text-emerald-300 bg-gray-50 p-3 rounded-full mr-2 fa fa-arrow-up"></i>
+            {{ driversLatest.petrole[1] }} €/kw | <span
+              class="text-sm text-emerald-400 bg-gray-50 p-3 rounded-full mr-2">{{
+              driversLatest.petrole[0] }}</span> <br />
+          </p>
+
+
+        </div>
+        <h2 class="text-gray-400 font-bold bg-gray-50 p-3 mb-3 shadow">
+          Baseload
+        </h2>
+        <div class=" flex justify-evenly  text-center">
+
+          <p class="text-sm font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"> <span
+              class=" text-emerald-400  p-3 rounded-full mr-2">MIN</span> <br /> {{ variations.petrole.min}}
+            €/kw
+          </p>
+          <p class="text-sm font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"><span
+              class=" text-emerald-400  p-3 rounded-full mr-2">MAX</span> <br /> {{ variations.petrole.max }}
+            €/kw </p>
+          <p class="text-sm font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"><span
+              class=" text-sm text-emerald-400  p-3 rounded-full mr-2">MOY</span> <br /> {{
+            variations.petrole.avg
+            }}
+            €/kw </p>
+
+        </div>
+      </div>
+      <div class="w-full md:w-full lg:w-full p-2">
+
+        <div class="transform transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+          <h2 class="text-base font-bold mb-4   shadow bg-slate-100 p-2 rounded-lg "> {{driversLatest.petrole[1]}}
+            €/kw
+          </h2>
+
+          <div id="chart2" class="text-slate-800"> </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="w-full md:w-1/3 lg:w-1/3 p-2">
+      <div
+        class=" transform hover:scale-95 transition duration-500  mb-4 ease-in-out bg-white rounded-lg shadow p-6 text-center">
+        <h2 class="text-emerald-400 font-bold bg-gray-50 p-3   shadow"><i class="fa fa-fire "></i> Prix de CO² </h2>
+        <div class=" flex justify-evenly  text-center">
+
+          <p class=" font-bold mb-4 text-slate-400  shadow p-4 rounded-lg w-full"> <i
+              class="text-sm text-emerald-300 bg-gray-50 p-3 rounded-full mr-2 fa fa-arrow-up"></i>
+            {{ driversLatest.co2[1] }} €/kw | <span class="text-sm text-emerald-400 bg-gray-50 p-3 rounded-full mr-2">{{
+              driversLatest.co2[0] }}</span> <br />
+          </p>
+
+
+        </div>
+        <h2 class="text-gray-400 font-bold bg-gray-50 p-3 mb-3 shadow">
+          Baseload
+        </h2>
+        <div class=" flex justify-evenly  text-center">
+
+          <p class="text-sm font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"> <span
+              class=" text-emerald-400  p-3 rounded-full mr-2">MIN</span> <br /> {{ variations.co2.min}}
+            €/kw
+          </p>
+          <p class="text-sm font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"><span
+              class=" text-emerald-400  p-3 rounded-full mr-2">MAX</span> <br /> {{ variations.co2.max }}
+            €/kw </p>
+          <p class="text-sm font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"><span
+              class=" text-sm text-emerald-400  p-3 rounded-full mr-2">MOY</span> <br /> {{
+            variations.co2.avg
+            }}
+            €/kw </p>
+
+        </div>
+      </div>
+      <div class="w-full md:w-full lg:w-full p-2">
+
+        <div class="transform transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+          <h2 class="text-base font-bold mb-4   shadow bg-slate-100 p-2 rounded-lg "> {{driversLatest.co2[1]}}
+            €/kw
+          </h2>
+
+          <div id="chart3" class="text-slate-800"> </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
   </div>
 
+
+  <script>
+    let periodes = document.querySelector('#periodes1','#periodes2')
+
+       let datesCo2 = "{{ drivers.co2.dates }}"
+       let  datesCharbon = "{{ drivers.charbon.dates }}"
+       let datesPetrole = "{{ drivers.petrole.dates }}"
+
+        // ---------------------------------------------------------------
+        var options1 = {
+        chart: {
+        type: 'line'
+        },
+        series: [{
+          name: 'Charbon',
+          data: [{{   drivers.charbon.prices  }}]
+        }
+        ],
+        xaxis: {
+        categories:   datesCharbon.split(",")
+        },
+        colors: ['#34d399','#334255']
+        ,stroke: {
+        curve: 'smooth',
+        }
+        };
+
+        var chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
+
+        chart1.render();
+
+        // ---------------------------------------------------------------
+        var options2 = {
+        chart: {
+        type: 'line'
+        },
+        series: [{
+        name: 'Pétrole',
+        data: [{{ drivers.petrole.prices }}]
+        }
+        ],
+        xaxis: {
+        categories:  datesPetrole .split(","),
+        colors: ['#34d399','#334255']
+        ,stroke: {
+        curve: 'smooth',
+        }
+        }};
+
+        var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+
+        chart2.render();
+
+        // ---------------------------------------------------------------
+        var options3 = {
+        chart: {
+        type: 'line'
+        },
+        series: [{
+        name: 'Charbon',
+        data: [{{ drivers.co2.prices }}]
+        }
+        ],
+        xaxis: {
+        categories:  datesCo2.split(",")
+
+        },
+        colors: ['#34d399','#334255']
+        ,stroke: {
+        curve: 'smooth',
+        }
+        };
+
+        var chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
+
+        chart3.render();
+
+  </script>
 </div>
+
+
 @endsection

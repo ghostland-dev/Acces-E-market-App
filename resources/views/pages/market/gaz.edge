@@ -1,0 +1,203 @@
+@layout('layouts/app')
+
+@section('content')
+<div class="m-2">
+
+
+  {{-- Changement des variables de Gaz --}}
+  <div class="flex flex-wrap">
+    <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+
+      <div
+        class=" transform hover:scale-95 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+        <h2 class="text-emerald-400 font-bold bg-gray-50 p-3 my-  shadow"><i class="fa fa-fire "></i> Prix Spot Gaz
+        </h2>
+        <div class=" flex justify-evenly  text-center">
+
+          <p class=" font-bold mb-4 text-slate-400  shadow p-4 rounded-lg w-full"> <i
+              class="fa fa-bell text-emerald-400 bg-slate-500 p-3 rounded-full mr-2"></i> {{ variations.gaz.last }}
+            €/kw
+          </p>
+          <p class=" font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"><i
+              class="{{ variations.gaz.variat > 0? 'fa fa-arrow-up text-emerald-400 bg-slate-500':'fa fa-arrow-down text-red-400 bg-slate-500' }} p-3 rounded-full mr-2"></i>
+            {{ variations.gaz.variat
+            }}
+            €/kw </p>
+
+        </div>
+        <h2 class="text-emerald-400 font-bold bg-gray-50 p-3 mb-3 shadow"><i class="fa fa-fire "></i> Variations
+        </h2>
+        <div class=" flex justify-evenly  text-center">
+
+          <p class="text-xs font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"> <span
+              class=" text-emerald-400 bg-gray-100 p-3 rounded-full mr-2">MIN</span> {{ variations.gaz.min }}
+            €/kw
+          </p>
+          <p class="text-xs font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"><span
+              class=" text-emerald-400 bg-gray-100 p-3 rounded-full mr-2">MAX</span> {{ variations.gaz.max }}
+            €/kw </p>
+          <p class="text-xs font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"><span
+              class=" text-xs text-emerald-400 bg-gray-100 p-3 rounded-full mr-2">MOY</span> {{ variations.gaz.avg }}
+            €/kw </p>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class=" transform hover:scale-95 transition duration-500  my-4 ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+        <h2 class="text-emerald-400 font-bold bg-gray-50 p-3 my-  shadow"><i class="fa fa-fire "></i> Prix futur
+          Calendrier 01
+        </h2>
+        <div class=" flex justify-evenly  text-center">
+
+          <p class=" font-bold mb-4 text-slate-400  shadow p-4 rounded-lg w-full"> <i
+              class="fa fa-bell text-emerald-400 bg-slate-500 p-3 rounded-full mr-2"></i> {{ variations.cal1.last }}
+            €/kw
+          </p>
+          <p class=" font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"><i
+              class="{{ variations.cal1.variat > 0? 'fa fa-arrow-up text-emerald-400 bg-slate-500':'fa fa-arrow-down text-red-400 bg-slate-500' }} p-3 rounded-full mr-2"></i>
+            {{ variations.cal1.variat
+            }}
+            €/kw </p>
+
+        </div>
+        <h2 class="text-emerald-400 font-bold bg-gray-50 p-3 mb-3 shadow"><i class="fa fa-fire "></i> Variations
+        </h2>
+        <div class=" flex justify-evenly  text-center">
+
+          <p class="text-xs font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"> <span
+              class=" text-emerald-400 bg-gray-100 p-3 rounded-full mr-2">MIN</span> {{ variations.cal1.min }}
+            €/kw
+          </p>
+          <p class="text-xs font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"><span
+              class=" text-emerald-400 bg-gray-100 p-3 rounded-full mr-2">MAX</span> {{ variations.cal1.max }}
+            €/kw </p>
+          <p class="text-xs font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"><span
+              class=" text-xs text-emerald-400 bg-gray-100 p-3 rounded-full mr-2">MOY</span> {{ variations.cal1.avg }}
+            €/kw </p>
+
+        </div>
+
+      </div>
+
+      <div
+        class=" transform hover:scale-95 transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+        <h2 class="text-emerald-400 font-bold bg-gray-50 p-3 my-  shadow"><i class="fa fa-fire "></i> Prix futur
+          Calendrier 02
+        </h2>
+        <div class=" flex justify-evenly  text-center">
+
+          <p class=" font-bold mb-4 text-slate-400  shadow p-4 rounded-lg w-full"> <i
+              class="fa fa-bell text-emerald-400 bg-slate-500 p-3 rounded-full mr-2"></i> {{ variations.cal2.last }}
+            €/kw
+          </p>
+          <p class=" font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"><i
+              class="{{ variations.cal2.variat > 0? 'fa fa-arrow-up text-emerald-400 bg-slate-500':'fa fa-arrow-down text-red-400 bg-slate-500' }} p-3 rounded-full mr-2"></i>
+            {{ variations.cal2.variat }}
+            €/kw </p>
+
+        </div>
+        <h2 class="text-emerald-400 font-bold bg-gray-50 p-3 mb-3 shadow"><i class="fa fa-fire "></i> Variations
+        </h2>
+        <div class=" flex justify-evenly  text-center">
+
+          <p class="text-xs font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"> <span
+              class=" text-emerald-400 bg-gray-100 p-3 rounded-full mr-2">MIN</span> {{ variations.cal2.min }}
+            €/kw
+          </p>
+          <p class="text-xs font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"><span
+              class=" text-emerald-400 bg-gray-100 p-3 rounded-full mr-2">MAX</span> {{ variations.cal2.max }}
+            €/kw </p>
+          <p class="text-xs font-bold mb-4 text-slate-400 shadow p-4 rounded-lg w-full"><span
+              class=" text-xs text-emerald-400 bg-gray-100 p-3 rounded-full mr-2">MOY</span> {{ variations.cal2.avg }}
+            €/kw </p>
+
+        </div>
+
+      </div>
+
+
+    </div>
+    <div class="w-full md:w-1/2 lg:w-1/2 p-2">
+
+      <div class="transform transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
+        <h2 class="p-3 mb-1 text-start text-sm font-bold rounded-lg shadow bg-gray-50  text-gray-500 "> <i
+            class="duration-75 animate-pulse fa fa-bell text-emerald-500 mr-2"></i> la variation par rapport à la
+          semaine
+          derniere est de : <span class="font-bold text-emerald-400 bg-gray-100 p-2 rounded-full">{{
+            variations.gaz.variat
+            }} €/kw</span>
+        </h2>
+        <div class="row">
+          <div class=" w-full flex justify-evenly">
+            <div class="w-1/2 m-1">
+
+              <div class="relative max-w-sm">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <i class="fa fa-calendar-days text-emerald-400"></i>
+                </div>
+                <input datepicker type="text"
+                  class="bg-gray-50 border border-none shadow text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Selectionner une date">
+              </div>
+            </div>
+            <div class="w-1/2 m-1">
+              <div class="relative max-w-sm">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <i class="fa fa-calendar-days text-emerald-400"></i>
+                </div>
+                <input datepicker type="text"
+                  class="bg-gray-50 border border-none shadow text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Selectionner une date">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="chart1" class="shadow-md my-3"> </div>
+      </div>
+    </div>
+
+
+
+    <script>
+      const dates = "{{ gazData.cal1.dates }}"
+
+
+
+      var options1 = {
+        chart: {
+          type: 'line'
+        },
+        series: [{
+          name: 'Calendrier Base 01',
+          data: [{{ gazData.cal1.prices }}]
+
+      },
+      {
+      name: 'Calendrier Base 02',
+      data: [{{ gazData.cal2.prices }}]
+
+      }],
+        xaxis: {
+          categories: dates.split(',')
+        },
+        colors: ['#34d399', '#334155'],
+        stroke: {
+          curve: 'smooth',
+        }
+            };
+
+      var chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
+
+      chart1.render();
+
+    </script>
+    <script src="js/apexcharts.min.js"></script>
+  </div>
+</div>
+
+
+
+@endsection

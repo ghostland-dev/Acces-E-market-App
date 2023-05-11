@@ -20,7 +20,7 @@ export default class PasswordResetController {
       session.flash({
         notification: {
           type: 'error',
-          message: 'Invalid password reset token.',
+          message: 'Mot de passe invalide ou expiré.',
         },
       })
 
@@ -51,7 +51,7 @@ export default class PasswordResetController {
       session.flash({
         notification: {
           type: 'success',
-          message: 'Password reset successful.',
+          message: 'Mot de passe réilitalisé avec succès.',
         },
       })
 
@@ -60,7 +60,7 @@ export default class PasswordResetController {
       session.flash({
         notification: {
           type: 'error',
-          message: 'Invalid password reset token.',
+          message: 'Valeur invalide pour la réinitalisation.',
         },
       })
 

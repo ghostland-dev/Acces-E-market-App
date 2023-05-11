@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave, BaseModel, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import Alert from './Alert'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -11,6 +12,10 @@ export default class User extends BaseModel {
 
   @column()
   public email: string
+
+  @column()
+  public role: string
+
 
   @column({ serializeAs: null })
   public password: string
@@ -33,5 +38,8 @@ export default class User extends BaseModel {
       user.password = await Hash.make(user.password)
     }
   }
+
+  @hasMany(() => Alert)
+  public Alertes: HasMany<typeof Alert>
 
 }

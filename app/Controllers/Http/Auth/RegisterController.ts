@@ -18,7 +18,7 @@ export default class RegisterController {
     session.flash({
       notification: {
         type: 'success',
-        message: 'Register successful!',
+        message: 'Inscription reussi !✅🥳 ',
       },
     })
 

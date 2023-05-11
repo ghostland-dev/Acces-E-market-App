@@ -17,7 +17,7 @@ export default class ConfirmPasswordController {
       session.flash({
         notification: {
           type: 'error',
-          message: "We couldn't verify your credentials.",
+          message: "Nous n'avons pas pu verifié vous identifiants.🤔",
         },
       })
 

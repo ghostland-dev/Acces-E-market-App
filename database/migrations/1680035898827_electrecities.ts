@@ -7,6 +7,13 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
 
+      table.float('prix_baseload')
+      table.float('prix_peakload')
+      table.float('prix_max')
+      table.float('prix_min')
+      table.float('prix_avg')
+      table.date('date_cloture')
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
