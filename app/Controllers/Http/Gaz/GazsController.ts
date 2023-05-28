@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import axios from 'axios'
-
+import Event from '@ioc:Adonis/Core/Event'
 const date = new Date()
 const today = new Date().toISOString().slice(0, 10);
 const url = 'http://127.0.0.1:3333'
@@ -14,7 +14,8 @@ let calendar = (year = actualYear) => {
 
 export default class GazsController {
 
-  public async gazDetails({ response, request, params, view, session, auth }: HttpContextContract) {
+  public async gazDetails({ view }: HttpContextContract) {
+
 
     function calculateAverage(numbers: any[]) {
       const sum = numbers.reduce((a, b) => a + b, 0)
@@ -22,7 +23,7 @@ export default class GazsController {
       return avg
     }
 
-
+    Event.emit('new:user', { id: 1 })
     const cal1Base = await axios.get('http://127.0.0.1:3333/api/v1/gaz/futur/start/2023-02-22/end/2023-04-10/Days/First/24')
     const cal2Base = await axios.get('http://127.0.0.1:3333/api/v1/gaz/futur/start/2023-02-22/end/2023-04-10/Days/First/25')
     const gaz = await axios.get(url + `/api/v1/gaz/futur/start/2022-01-01/end/${encodeURIComponent(dateShort)}/Days/First/${thisYear + 1}`)
@@ -35,13 +36,13 @@ export default class GazsController {
     const gazData = {
       cal1: {
 
-        prices: cal1Base.data.results.items.map(p => p.close),
-        dates: cal1Base.data.results.items.map(d => d.tradedatetimegmt.slice(0, 10))
+        prices: cal1Base.data.results.items.map((p: { close: any; }) => p.close),
+        dates: cal1Base.data.results.items.map((d: { tradedatetimegmt: any; }) => d.tradedatetimegmt)
       },
       cal2: {
 
-        prices: cal2Base.data.results.items.map(p => p.close),
-        dates: cal2Base.data.results.items.map(d => d.tradedatetimegmt.slice(0, 10))
+        prices: cal2Base.data.results.items.map((p: { close: any; }) => p.close),
+        dates: cal2Base.data.results.items.map((d: { tradedatetimegmt: any; }) => d.tradedatetimegmt)
       },
       gaz: {
         prices: gazPrices,
@@ -83,7 +84,7 @@ export default class GazsController {
     return view.render('pages.market.gaz', { gazData, variations })
   }
 
-  public async gazSpot({ response, request, params, view, session, auth }: HttpContextContract) {
+  public async gazSpot({ response, params }: HttpContextContract) {
     const options = {
       method: 'GET',
       url: 'https://webservice-eex.gvsi.com/query/json/getDaily/close/onexchtradevolumeeex/tradedatetimegmt/',
@@ -104,7 +105,7 @@ export default class GazsController {
       console.error(error)
     }
   }
-  public async gazFutur({ response, request, params, view, session, auth }: HttpContextContract) {
+  public async gazFutur({ response, params }: HttpContextContract) {
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
@@ -127,7 +128,7 @@ export default class GazsController {
 
     response.send(data)
   }
-  public async endOfDay({ response, request, params, view, session, auth }: HttpContextContract) {
+  public async endOfDay({ response }: HttpContextContract) {
     const options = {
       method: 'GET',
       url: 'https://webservice-eex.gvsi.com/query/json/getQuotes/settledate/dir/',

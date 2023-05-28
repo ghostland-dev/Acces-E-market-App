@@ -1,4 +1,4 @@
-<nav class="bg-white shadow-sm" x-data="{ open: false }">
+<nav class="bg-slate-50 shadow-sm" x-data="{ open: false }">
   <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <div class="flex items-center">
@@ -12,60 +12,64 @@
 
 
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4  line-clamp-1 space-x-4">
+          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
             <a href="{{ route('dashboard') }}"
-              class="  text-emerald-400  hover:text-gray-900 text-sm font-medium h-2">Tableau
+              class="  text-emerald-400  hover:text-emerald-600 text-sm font-medium h-2">Tableau
               de bord</a>
           </div>
         </div>
 
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4  line-clamp-1 space-x-4">
-            <a href="{{ route('drivers') }}" class="  text-emerald-400  hover:text-gray-900 text-sm font-medium h-2">
+          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
+            <a href="{{ route('drivers') }}" class="  text-emerald-400  hover:text-emerald-600 text-sm font-medium h-2">
               Drivers</a>
           </div>
         </div>
 
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4  line-clamp-1 space-x-4">
-            <a href="{{ route('marketElec') }}" class="  text-emerald-400  hover:text-gray-900 text-sm font-medium h-2">
+          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
+            <a href="{{ route('marketElec') }}"
+              class="  text-emerald-400  hover:text-emerald-600 text-sm font-medium h-2">
               Marché Electrcité</a>
           </div>
         </div>
 
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4  line-clamp-1 space-x-4">
-            <a href="{{ route('marketGaz') }}" class="  text-emerald-400   hover:text-gray-900 text-sm font-medium h-2">
+          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
+            <a href="{{ route('marketGaz') }}"
+              class="  text-emerald-400   hover:text-emerald-600 text-sm font-medium h-2">
               Marché Gaz</a>
           </div>
         </div>
 
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4  line-clamp-1 space-x-4">
-            <a href="{{ route('articles') }}" class="  text-emerald-400   hover:text-gray-900 text-sm font-medium h-2">
+          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
+            <a href="{{ route('articles') }}"
+              class="  text-emerald-400   hover:text-emerald-600 text-sm font-medium h-2">
               Articles</a>
           </div>
         </div>
 
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4  line-clamp-1 space-x-4">
+          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
             <a href="{{ route('notifications') }}"
-              class="  text-emerald-400   hover:text-gray-900 text-sm font-medium h-2">
+              class="  text-emerald-400   hover:text-emerald-600 text-sm font-medium h-2">
               Notifications <span class="bg-emerald-400 rounded-full text-white p-1 text-xs w-3">0</span></a>
           </div>
         </div>
 
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4  line-clamp-1 space-x-4">
-            <a href="{{ route('alertes') }}" class="  text-emerald-400   hover:text-gray-900 text-sm font-medium h-2">
+          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
+            <a href="{{ route('alertes') }}"
+              class="  text-emerald-400   hover:text-emerald-600 text-sm font-medium h-2">
               Alertes</a>
           </div>
         </div>
 
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4  line-clamp-1 space-x-4">
+          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
             <a href="{{ route('utilisateur.index') }}"
-              class="  text-emerald-400   hover:text-gray-900 text-sm font-medium h-2">
+              class="  text-emerald-400   hover:text-emerald-600 text-sm font-medium h-2">
               utilisateurs</a>
           </div>
         </div>
@@ -95,24 +99,25 @@
               <form action="{{ route('AuthController.destroy') }}" method="post">
                 {{ csrfField() }}
                 <button
-                  class="w-full text-left px-6 py-2.5 text-sm text-gray-600 hover:bg-gray-100 rounded-sm hover:text-gray-900">
+                  class="w-full text-left px-6 py-2.5 text-sm text-gray-600 hover:bg-gray-100 rounded-sm hover:text-emerald-600">
                   <i class="fa fa-sign-out-alt fa-lg text-slate-800  "></i> Déconnexion
                 </button>
               </form>
               <button type="button" data-drawer-target="drawer-swipe" data-drawer-show="drawer-swipe"
                 data-drawer-placement="bottom" data-drawer-edge="true" data-drawer-edge-offset="bottom-[60px]"
                 aria-controls="drawer-swipe"
-                class="w-full text-left px-6 py-2.5 text-sm text-gray-600 hover:bg-gray-100 rounded-sm hover:text-gray-900">
+                class="w-full text-left px-6 py-2.5 text-sm text-gray-600 hover:bg-gray-100 rounded-sm hover:text-emerald-600">
                 <i class="fa fa-menu fa-lg text-slate-800  "></i> Options
               </button>
             </div>
           </div>
           @else
           <a href="/login"
-            class="text-emerald-400 font-medium text-sm border-solid border-b-gray-700  hover:text-emerald-900">
+            class="text-emerald-400 font-medium text-sm rounded-lg border bg-slate-50  border-gray-300 py-2 px-5 hover:text-emerald-400">
             Se connecter
           </a>
-          <a href="/register" class="text-gray-600 font-medium text-sm hover:text-gray-900">
+          <a href="/register"
+            class="text-gray-600 font-medium text-sm rounded-lg border bg-slate-50   border-gray-300 py-2 px-5 hover:text-emerald-400">
             S'inscrire
           </a>
           @endif

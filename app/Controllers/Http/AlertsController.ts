@@ -4,15 +4,37 @@ import Alert from 'App/Models/Alert'
 
 
 export default class AlertsController {
-  public async Alerts({ view }: HttpContextContract) {
-    const Alerts = await Alert.all()
+  public async Alerts({ request, view, auth }: HttpContextContract) {
+    const userId = auth.user?.id ? auth.user.id : 1
+    const searchQuery = request.input('search');
+
+
+    if (searchQuery) {
+
+      const Alerts = await Alert.query()
+        .where('nom', 'like', `%${searchQuery}%`)
+        .orWhere('prenom', 'like', `%${searchQuery}%`)
+        .orWhere('tel', 'like', `%${searchQuery}%`)
+        .orWhere('email', 'like', `%${searchQuery}%`)
+        .orWhere('siret', 'like', `%${searchQuery}%`)
+        .orWhere('titre', 'like', `%${searchQuery}%`)
+        .orWhere('energie', 'like', `%${searchQuery}%`)
+        .orWhere('type', 'like', `%${searchQuery}%`)
+        .orWhere('description', 'like', `%${searchQuery}%`)
+
+      Alerts.findIndex((alert: Alert) => alert.userId === userId)
 
 
 
-    return view.render('pages/alertes/index', { Alerts })
+      return view.render('pages/alertes/index', { Alerts });
+    } else {
+      const Alerts = await Alert.all()
+      Alerts.findIndex((alert: Alert) => alert.userId === userId)
+      return view.render('pages/alertes/index', { Alerts });
+    }
+
   }
-
-  public async show({ params, view, session, auth }: HttpContextContract) {
+  public async show({ params, view, session }: HttpContextContract) {
     const alert = await Alert.findOrFail(params.id)
 
     session.flash({
@@ -31,7 +53,7 @@ export default class AlertsController {
     const id = auth.user?.id ?? 1
 
     const alert = new Alert()
-    alert.nom = actif
+    alert.actif = actif ? true : false
     alert.titre = titre
     alert.nom = nom
     alert.prenom = prenom
@@ -61,7 +83,7 @@ export default class AlertsController {
 
   public async Co2Alert({ }: HttpContextContract) { }
 
-  public async edit({ view, response, request, params, session, auth }: HttpContextContract) {
+  public async edit({ view, params, session }: HttpContextContract) {
     const alert = await Alert.findOrFail(params.id)
 
     session.flash({
@@ -80,7 +102,7 @@ export default class AlertsController {
 
     const { titre, min, max, type, energie, description, nom, prenom, tel, email, siret, actif } = request.body()
 
-    alert.nom = actif
+    alert.actif = actif ? true : false
     alert.titre = titre
     alert.nom = nom
     alert.prenom = prenom
@@ -107,8 +129,8 @@ export default class AlertsController {
     return response.redirect().toRoute('alerte.show', { id: alert.id })
   }
 
-  public async delete({ request, params, response, session, auth }: HttpContextContract) {
-    console.log('we got gere')
+  public async delete({ params, response }: HttpContextContract) {
+ 
     const alert = await Alert.findOrFail(params.id)
 
     await alert.delete()
@@ -117,7 +139,7 @@ export default class AlertsController {
   }
 
 
-  public async deleteAll({ request, params, response, session, auth }: HttpContextContract) {
+  public async deleteAll({ response, session }: HttpContextContract) {
     session.flash({
       notification: {
         type: 'danger',

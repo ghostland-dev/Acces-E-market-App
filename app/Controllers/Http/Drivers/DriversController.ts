@@ -111,16 +111,22 @@ export default class DriversController {
         max: Math.max(...drivers.charbon.prices),
         min: Math.min(...drivers.charbon.prices),
         avg: avg(drivers.charbon.prices),
+        last: drivers.charbon.prices[drivers.charbon.prices.length - 1],
+        variat: Math.round(drivers.charbon.prices[drivers.charbon.prices.length - 1] - drivers.charbon.prices[drivers.charbon.prices.length - 5]),
       },
       petrole: {
         max: Math.max(...drivers.petrole.prices),
         min: Math.min(...drivers.petrole.prices),
         avg: avg(drivers.petrole.prices),
+        last: drivers.petrole.prices[drivers.petrole.prices.length - 1],
+        variat: Math.round(drivers.petrole.prices[drivers.petrole.prices.length - 1] - drivers.petrole.prices[drivers.petrole.prices.length - 5]),
       },
       co2: {
         max: Math.max(...drivers.co2.prices),
         min: Math.min(...drivers.co2.prices),
         avg: avg(drivers.co2.prices),
+        last: drivers.co2.prices[drivers.co2.prices.length - 1],
+        variat: Math.round(drivers.co2.prices[drivers.co2.prices.length - 1] - drivers.co2.prices[drivers.co2.prices.length - 5]),
       }
     }
 

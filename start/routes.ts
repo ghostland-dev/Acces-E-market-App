@@ -2,6 +2,10 @@ import Route from '@ioc:Adonis/Core/Route'
 
 
 
+
+
+Route.post('/socket/price', "PrixesController.priceUpdate")
+
 Route.get('/', async ({ view }) => {
   return view.render('home')
 }).as('home')
@@ -68,6 +72,8 @@ Route.group(() => {
   Route.get('/api/v1/elec/spot/:period', 'Electrcity/ElectrcitiesController.electrcitySpot').as('elecSpot')
   Route.get('/api/v1/elec/futur/debut/:start/fin/:end/:interval/:order/:calenderier/:type', 'Electrcity/ElectrcitiesController.electrcityFutur').as('elecFutur')
   Route.get('/api/v1/elec/futur/expiration/:expDate/option/:option/interval/:interval', 'Electrcity/ElectrcitiesController.electrcityFuturCals').as('elecFuturCals')
+  Route.get('/api/v1/elec/data', 'Electrcity/ElectrcitiesController.baseload').as('base')
+  Route.get('/api/v1/elec/text', 'Electrcity/ElectrcitiesController.testing').as('test')
 
   /*
   |--------------------------------------------------------------------------|
@@ -130,6 +136,64 @@ Route.group(() => {
   Route.get('alertes/details/:id', 'AlertsController.show').as('alerte.show')
 
 
+
+  Route.get('utilisateurs', 'UtilisateursController.index').as('utilisateur.index')
+  Route.get('utilisateur/nouveau', 'UtilisateursController.create').as('utilisateur.create')
+  Route.get('utilisateur/:id/details', 'UtilisateursController.show').as('utilisateur.show')
+  Route.get('utilisateur/:id/editer', 'UtilisateursController.edit').as('utilisateur.edit')
+  Route.post('utilisateur/sauvgarder', 'UtilisateursController.store').as('utilisateur.store')
+  Route.post(':id/utilisateur/modifier', 'UtilisateursController.update').as('utilisateur.update')
+  Route.post('utilisateur/:id/supprimer', 'UtilisateursController.destroy').as('utilisateur.destroy')
+
+
+  Route.get('electricites', 'PrixelecsController.index').as('electricite.index')
+  Route.get('electricite/nouveau', 'PrixelecsController.create').as('electricite.create')
+  Route.get('electricite/:id/details', 'PrixelecsController.show').as('electricite.show')
+  Route.get('electricite/:id/editer', 'PrixelecsController.edit').as('electricite.edit')
+  Route.post('electricite/sauvgarder', 'PrixelecsController.store').as('electricite.store')
+  Route.post(':id/electricite/modifier', 'PrixelecsController.update').as('electricite.update')
+  Route.post('electricite/:id/supprimer', 'PrixelecsController.destroy').as('electricite.destroy')
+
+
+  Route.get('gazs', 'PrixgazsController.index').as('gaz.index')
+  Route.get('gaz/nouveau', 'PrixgazsController.create').as('gaz.create')
+  Route.get('gaz/:id/details', 'PrixgazsController.show').as('gaz.show')
+  Route.get('gaz/:id/editer', 'PrixgazsController.edit').as('gaz.edit')
+  Route.post('gaz/sauvgarder', 'PrixgazsController.store').as('gaz.store')
+  Route.post(':id/gaz/modifier', 'PrixgazsController.update').as('gaz.update')
+  Route.post('gaz/:id/supprimer', 'PrixgazsController.destroy').as('gaz.destroy')
+
+
+  Route.get('charbons', 'CoalsController.index').as('charbon.index')
+  Route.get('charbon/nouveau', 'CoalsController.create').as('charbon.create')
+  Route.get('charbon/:id/details', 'CoalsController.show').as('charbon.show')
+  Route.get('charbon/:id/editer', 'CoalsController.edit').as('charbon.edit')
+  Route.post('charbon/sauvgarder', 'CoalsController.store').as('charbon.store')
+  Route.post(':id/charbon/modifier', 'CoalsController.update').as('charbon.update')
+  Route.post('charbon/:id/supprimer', 'CoalsController.destroy').as('charbon.destroy')
+
+
+  Route.get('co2s', 'Co2sController.index').as('co2.index')
+  Route.get('co2/nouveau', 'Co2sController.create').as('co2.create')
+  Route.get('co2/:id/details', 'Co2sController.show').as('co2.show')
+  Route.get('co2/:id/editer', 'Co2sController.edit').as('co2.edit')
+  Route.post('co2/sauvgarder', 'Co2sController.store').as('co2.store')
+  Route.post(':id/co2/modifier', 'Co2sController.update').as('co2.update')
+  Route.post('co2/:id/supprimer', 'Co2sController.destroy').as('co2.destroy')
+
+
+
+  Route.get('fuels', 'FuelsController.index').as('fuel.index')
+  Route.get('fuel/nouveau', 'FuelsController.create').as('fuel.create')
+  Route.get('fuel/:id/details', 'FuelsController.show').as('fuel.show')
+  Route.get('fuel/:id/editer', 'FuelsController.edit').as('fuel.edit')
+  Route.post('fuel/sauvgarder', 'FuelsController.store').as('fuel.store')
+  Route.post(':id/fuel/modifier', 'FuelsController.update').as('fuel.update')
+  Route.post('fuel/:id/supprimer', 'FuelsController.destroy').as('fuel.destroy')
+
+
+
+
 }).prefix('app/data/').middleware(['auth'])
 
 /*
@@ -146,7 +210,7 @@ Route.group(() => {
     Route.post('verification', 'EmailVerificationController.store')
     Route.get('verification/:email', 'EmailVerificationController.verify').as('verification.verify')
 
-    Route.get('login', 'AuthController.create')
+    Route.get('login', 'AuthController.create').as('connexion')
     Route.post('login', 'AuthController.store')
 
     Route.get('forgot-password', 'PasswordResetRequestController.create')
@@ -166,10 +230,4 @@ Route.group(() => {
 }).namespace('App/Controllers/Http/Auth')
 
 
-Route.group(() => {
-  Route.get('/', 'UtilisateursController.index').as('utilisateur.index')
-  Route.post('/', 'UtilisateursController.store').as('utilisateur.store')
-  Route.get('/:id', 'UtilisateursController.show').as('utilisateur.show')
-  Route.put('/:id', 'UtilisateursController.update').as('utilisateur.update')
-  Route.delete('/:id', 'UtilisateursController.destroy').as('utilisateur.destroy')
-}).prefix('app/data/utilisateur')
+

@@ -2,8 +2,8 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 
 export default class UtilisateursController {
-  public async index({ view , session }: HttpContextContract) {
-    const users = await User.all()
+  public async index({ view, session }: HttpContextContract) {
+    const utilisateurs = await User.all()
 
     session.flash({
       notification: {
@@ -12,50 +12,60 @@ export default class UtilisateursController {
       },
     })
 
-    return view.render('pages/utilisateurs/index', { users })
+    return view.render('pages/utilisateurs/index', { utilisateurs })
   }
 
-  public async store({ request, response }: HttpContextContract) {
-    const data = request.only(['username', 'email', 'password'])
-    const user = await User.create(data)
-    response.status(201).json(user)
+  public async store({ request, response, view, auth }: HttpContextContract) {
+    const data = request.only(['name', 'email', 'password', 'role'])
+    const utilisateur = await User.create(data)
+
+    return view.render('pages/utilisateurs/show', { utilisateur })
   }
 
-  public async show({ params, response }: HttpContextContract) {
-    const user = await User.find(params.id)
+  public async show({ params, response, view, auth }: HttpContextContract) {
+    const utilisateur = await User.find(params.id)
 
-    if (!user) {
-      response.status(404).json({ message: 'User not found' })
+    if (!utilisateur) {
+      response.status(404).json({ message: 'utilisateur introuvable' })
       return
     }
 
-    response.status(200).json(user)
+    return view.render('pages/utilisateurs/show', { utilisateur })
   }
 
-  public async update({ params, request, response }: HttpContextContract) {
-    const user = await User.find(params.id)
+  public async edit({ params, response, view, auth }: HttpContextContract) {
+    const utilisateur = await User.find(params.id)
 
-    if (!user) {
-      response.status(404).json({ message: 'User not found' })
+  
+
+    return view.render('pages/utilisateurs/edit', { utilisateur })
+  }
+
+
+  public async update({ params, request, response, view, auth }: HttpContextContract) {
+    const utilisateur = await User.find(params.id)
+
+    if (!utilisateur) {
+      response.status(404).json({ message: 'utilisateur introuvable' })
+      return view.render('pages/utilisateurs/show', { utilisateur })
+    }
+
+    const data = request.only(['name', 'email', 'password', 'role'])
+    utilisateur.merge(data)
+    await utilisateur.save()
+
+    return view
+  }
+
+  public async destroy({ params, response, view, auth }: HttpContextContract) {
+    const utilisateur = await User.find(params.id)
+
+    if (!utilisateur) {
+      response.status(404).json({ message: 'utilisateur introuvable' })
       return
     }
 
-    const data = request.only(['username', 'email', 'password'])
-    user.merge(data)
-    await user.save()
-
-    response.status(200).json(user)
-  }
-
-  public async destroy({ params, response }: HttpContextContract) {
-    const user = await User.find(params.id)
-
-    if (!user) {
-      response.status(404).json({ message: 'User not found' })
-      return
-    }
-
-    await user.delete()
-    response.status(204).json({ message: 'User deleted' })
+    await utilisateur.delete()
+    return response.redirect('/pages/utilisateurs/index')
   }
 }

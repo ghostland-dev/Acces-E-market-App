@@ -9,18 +9,31 @@ export default class AuthController {
   public async store({ request, session, response, auth }: HttpContextContract) {
     const { email, password, remember } = await request.validate(LoginValidator)
 
+
     try {
       await auth.attempt(email, password, remember)
- 
 
-      session.flash({
-        notification: {
-          type: 'success',
-          message: "😉 Ravi de vous revoir, vous êtes connecté avec succès.",
-        },
-      })
+      if (auth.user?.role != 'master') {
 
-      return response.intended()
+        session.flash({
+          notification: {
+            type: 'error',
+            message: "Désolé votre compte n'est pas authorisé de s'authentifié.😏",
+          },
+        })
+
+        return response.redirect().back()
+
+      } else {
+        session.flash({
+          notification: {
+            type: 'success',
+            message: "😉 Ravi de vous revoir, vous êtes connecté avec succès.",
+          },
+        })
+
+        return response.intended()
+      }
     } catch (error) {
       session.flash({
         notification: {
@@ -31,6 +44,8 @@ export default class AuthController {
 
       return response.redirect().back()
     }
+
+
   }
 
   public async destroy({ auth, session, response }: HttpContextContract) {
