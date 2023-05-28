@@ -7,3 +7,8 @@
 | boot.
 |
 */
+import Event from '@ioc:Adonis/Core/Event'
+
+Event.on('new:alert', (alert) => {
+  console.log(alert)
+})

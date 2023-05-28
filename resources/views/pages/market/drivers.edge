@@ -50,8 +50,12 @@
       <div class="w-full md:w-full lg:w-full p-2">
 
         <div class="transform transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
-          <h2 class="text-base font-bold mb-4   shadow bg-slate-100 p-2 rounded-lg "> {{driversLatest.charbon[1]}}
-            €/kw
+          <h2 class=" text-xs p-3 mb-1 text-start  font-bold rounded-lg shadow bg-gray-50  text-gray-500 "> <i
+              class="duration-75 animate-pulse fa fa-bell text-emerald-500 mr-2"></i> la variation de la
+            semaine derniere : <span
+              class="bg-gray-100 p-2 {{variations.charbon.variat > 0 ? 'text-emerald-400':'text-red-400'}} font-bold rounded-full">
+              {{variations.charbon.variat}}
+              €/kw</span>
           </h2>
 
           <div id="chart1" class="text-slate-800"> </div>
@@ -99,8 +103,13 @@
       <div class="w-full md:w-full lg:w-full p-2">
 
         <div class="transform transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
-          <h2 class="text-base font-bold mb-4   shadow bg-slate-100 p-2 rounded-lg "> {{driversLatest.petrole[1]}}
-            €/kw
+
+          <h2 class=" text-xs p-3 mb-1 text-start  font-bold rounded-lg shadow bg-gray-50  text-gray-500 "> <i
+              class="duration-75 animate-pulse fa fa-bell text-emerald-500 mr-2"></i> la variation de la
+            semaine derniere : <span
+              class="bg-gray-100 p-2 {{variations.petrole.variat > 0 ? 'text-emerald-400':'text-red-400'}} font-bold rounded-full">
+              {{variations.petrole.variat}}
+              €/kw</span>
           </h2>
 
           <div id="chart2" class="text-slate-800"> </div>
@@ -147,8 +156,12 @@
       <div class="w-full md:w-full lg:w-full p-2">
 
         <div class="transform transition duration-500   ease-in-out bg-white rounded-lg shadow-xl p-6 text-center">
-          <h2 class="text-base font-bold mb-4   shadow bg-slate-100 p-2 rounded-lg "> {{driversLatest.co2[1]}}
-            €/kw
+          <h2 class=" text-xs p-3 mb-1 text-start  font-bold rounded-lg shadow bg-gray-50  text-gray-500 "> <i
+              class="duration-75 animate-pulse fa fa-bell text-emerald-500 mr-2"></i> la variation de la
+            semaine derniere : <span
+              class="bg-gray-100 p-2 {{variations.co2.variat > 0 ? 'text-emerald-400':'text-red-400'}}  font-bold rounded-full">
+              {{variations.co2.variat}}
+              €/kw</span>
           </h2>
 
           <div id="chart3" class="text-slate-800"> </div>

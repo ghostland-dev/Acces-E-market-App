@@ -7,8 +7,8 @@ export default Factory.define(User, ({ faker }) => {
     name: faker.name.lastName(),
     emailVerifiedAt: DateTime.local(),
     email: faker.internet.email(),
-    password: 'password-user',
-    role: faker.helpers.arrayElement(['commercial', 'user', 'master', 'client'])
+    password: 'password',
+    role: faker.helpers.arrayElement(['commercial', 'visiteur', 'administrateur', 'client', 'partenaire'])
 
   }
 }).build()

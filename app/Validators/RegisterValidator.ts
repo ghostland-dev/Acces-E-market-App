@@ -17,9 +17,9 @@ export default class RegisterValidator {
   })
 
   public messages = {
-    'required': 'The  field is required.',
-    'unique': 'The  has already been taken.',
-    'password.minLength': 'Password must be a minimum of 6 chracters.',
-    'password_confirmation.confirmed': 'Password confirmation does not match.',
+    'required': 'le champ field est obligatoire.',
+    'unique': 'ces identifiants ont été déjà utilisé..',
+    'password.minLength': 'le mot de passe devrait contenir en mois  6 caractèrs.',
+    'password_confirmation.confirmed': 'le mot de passe n\'est identique .',
   }
 }

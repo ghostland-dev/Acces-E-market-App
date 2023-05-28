@@ -5,13 +5,10 @@ export default class extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.increments('id').primary()
 
-      table.float('prix_baseload')
-      table.float('prix_max')
-      table.float('prix_min')
-      table.float('prix_avg')
-      table.date('date_cloture')
+      table.float('prix')
+      table.dateTime('date_enregistrement')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

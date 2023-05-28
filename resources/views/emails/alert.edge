@@ -44,8 +44,24 @@
     }
 
     a {
-      color: #2d3f4f;
-      text-decoration: underline;
+      color: #10ad79;
+      padding: 1em;
+    }
+
+    .data {
+      color: #11b872;
+      background-color: #eaf0f8;
+      padding: 0.5em 0.8em;
+      font-weight: 700;
+      border-radius: 1em;
+      font-size: 15px;
+      text-align: center;
+      font-family: comfortaa;
+
+    }
+
+    .prix {
+      color: #2e3658;
     }
 
     .button {
@@ -67,19 +83,21 @@
 
 <body class="pad">
   <div class="container">
-    <h1>Alert des prix</h1>
-    <p>Bonjour ,</p>
-    <p>Nous avons reçu une demande de réinitialisation de votre mot de passe.</p>
-    <p>Pour réinitialiser votre mot de passe, cliquez sur le lien ci-dessous :</p>
+    <h1>Alerte des prix</h1>
+    <p>Bonjour,</p>
+    <p>Nous avons détecté un changement de prix.</p>
+    <p>Pour plus de détails, veuillez consulter les informations ci-dessous :</p>
 
-    <p>Si vous n'avez pas demandé de réinitialisation de mot de passe, vous pouvez ignorer cet e-mail et votre compte
-      restera sécurisé.</p>
+    <!-- Insérer les détails du prix changé ici -->
+    <p class="data ">Nom du produit : <b class="prix"> {{ nomProduit }}</b></p>
+    <p class="data ">Prix précédent : <b class="prix"> {{ prixPrecedent }}</b></p>
+    <p class="data ">Nouveau prix : <b class="prix"> {{ nouveauPrix }}</b></p>
 
-    <p style="text-align: center;">
-      <a href=" " class="button">voir les détails</a>
-    </p>
-    <p>Cordialement,<br />équipe technique </p>
+    <p>Si vous avez des questions ou avez besoin d'assistance, n'hésitez pas à nous contacter.</p>
+
+    <p>Cordialement,<br />L'équipe technique</p>
   </div>
+
 </body>
 
 </html>

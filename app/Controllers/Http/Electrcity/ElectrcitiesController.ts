@@ -4,6 +4,7 @@ import axios from 'axios';
 import FormData from 'form-data'
 import fs from "fs"
 import https from "https"
+import moment from 'moment';
 
 
 
@@ -25,6 +26,8 @@ const mois = Actualdate.slice(5, 7)
 
 
 export default class ElectrcitiesController {
+
+
 
   public async electricityDetails({ response, request, params, view, session, auth }: HttpContextContract) {
 
@@ -82,21 +85,21 @@ export default class ElectrcitiesController {
           max: Math.max(...cals.Peak.cal1.prices),
           avg: calculateAverage(cals.Peak.cal1.prices),
           last: cals.Peak.cal1.prices[cals.Peak.cal1.prices.length - 1],
-          variat: Math.round(cals.Peak.cal1.prices[cals.Peak.cal1.prices.length - 5] - cals.Peak.cal1.prices[cals.Peak.cal1.prices.length - 1]),
+          variat: Math.round(cals.Peak.cal1.prices[cals.Peak.cal1.prices.length - 1] - cals.Peak.cal1.prices[cals.Peak.cal1.prices.length - 5]),
         },
         cal2: {
           min: Math.min(...cals.Peak.cal2.prices),
           max: Math.max(...cals.Peak.cal2.prices),
           avg: calculateAverage(cals.Peak.cal2.prices),
           last: cals.Peak.cal2.prices[cals.Peak.cal2.prices.length - 1],
-          variat: Math.round(cals.Peak.cal1.prices[cals.Peak.cal2.prices.length - 5] - cals.Peak.cal2.prices[cals.Peak.cal2.prices.length - 1]),
+          variat: Math.round(cals.Peak.cal1.prices[cals.Peak.cal2.prices.length - 1] - cals.Peak.cal2.prices[cals.Peak.cal2.prices.length - 5]),
         },
         cal3: {
           min: Math.min(...cals.Peak.cal3.prices),
           max: Math.max(...cals.Peak.cal3.prices),
           avg: calculateAverage(cals.Peak.cal3.prices),
           last: cals.Peak.cal3.prices[cals.Peak.cal3.prices.length - 1],
-          variat: Math.round(cals.Peak.cal1.prices[cals.Peak.cal3.prices.length - 5] - cals.Peak.cal3.prices[cals.Peak.cal3.prices.length - 1]),
+          variat: Math.round(cals.Peak.cal1.prices[cals.Peak.cal3.prices.length - 1] - cals.Peak.cal3.prices[cals.Peak.cal3.prices.length - 5]),
         }
       },
       base: {
@@ -105,21 +108,21 @@ export default class ElectrcitiesController {
           max: Math.max(...cals.Base.cal1.prices),
           avg: calculateAverage(cals.Base.cal1.prices),
           last: cals.Base.cal1.prices[cals.Base.cal1.prices.length - 1],
-          variat: Math.round(cals.Base.cal1.prices[cals.Base.cal1.prices.length - 5] - cals.Base.cal1.prices[cals.Base.cal1.prices.length - 1]),
+          variat: Math.round(cals.Base.cal1.prices[cals.Base.cal1.prices.length - 1] - cals.Base.cal1.prices[cals.Base.cal1.prices.length - 5]),
         },
         cal2: {
           min: Math.min(...cals.Base.cal2.prices),
           max: Math.max(...cals.Base.cal2.prices),
           avg: calculateAverage(cals.Base.cal2.prices),
           last: cals.Base.cal2.prices[cals.Base.cal2.prices.length - 1],
-          variat: Math.round(cals.Base.cal2.prices[cals.Base.cal2.prices.length - 5] - cals.Base.cal2.prices[cals.Base.cal2.prices.length - 1]),
+          variat: Math.round(cals.Base.cal2.prices[cals.Base.cal2.prices.length - 1] - cals.Base.cal2.prices[cals.Base.cal2.prices.length - 5]),
         },
         cal3: {
           min: Math.min(...cals.Base.cal3.prices),
           max: Math.max(...cals.Base.cal3.prices),
           avg: calculateAverage(cals.Base.cal3.prices),
           last: cals.Base.cal3.prices[cals.Base.cal3.prices.length - 1],
-          variat: Math.round(cals.Base.cal3.prices[cals.Base.cal3.prices.length - 5] - cals.Base.cal3.prices[cals.Base.cal3.prices.length - 1]),
+          variat: Math.round(cals.Base.cal3.prices[cals.Base.cal3.prices.length - 1] - cals.Base.cal3.prices[cals.Base.cal3.prices.length - 5]),
         }
       }
     }
@@ -196,16 +199,21 @@ export default class ElectrcitiesController {
     }
   }
 
-  public async fetchElectricityData({ response, request, params, view, session, auth }: HttpContextContract) {
+  public async fetchElectricityData({ response, request, params }: HttpContextContract) {
     try {
 
+      console.log(params.trading_date)
+
+      const { trading_date, delivery_date } = request.body()
+
       // http://127.0.0.1:3333/app/v1/electrcite/data
-      const phpFileUrl = 'http://localhost:8000/electrcity.php';
+      //const phpFileUrl = 'http://localhost:8000/electricity';
+      const phpFileUrl = `http://localhost:8000/electricity?trading_date=${trading_date}&delivery_date=${delivery_date}`;
       // const phpFileUrl = 'http://127.0.0.1:3333/app/v1/electrcite/data';
       const result = await axios.get(phpFileUrl);
 
       // Process the response data from the PHP file
-      const data = result.data;
+      const data = await result.data;
 
       // Send the processed data as a response
       response.status(200).json(data);
@@ -222,12 +230,20 @@ export default class ElectrcitiesController {
       ca: sslCertificate
     });
 
+    // Current date
+    const currentDate = moment().format('D MMM. YYYY');
+
+    // Yesterday's date
+    const yesterdayDate = moment().subtract(1, 'days').format('D MMM. YYYY');
+    const tomorrowDate = moment().add(1, 'days').format('D MMM. YYYY');
+
+
 
     let data = new FormData();
     data.append('filters[modality]', 'Auction');
     data.append('filters[sub_modality]', 'DayAhead');
-    data.append('filters[trading_date]', '10 Apr. 2023');
-    data.append('filters[delivery_date]', '11 Apr. 2023');
+    data.append('filters[trading_date]', yesterdayDate);
+    data.append('filters[delivery_date]', currentDate);
     data.append('filters[product]', '60');
     data.append('filters[data_mode]', 'graph');
     data.append('filters[market_area]', 'FR');
@@ -247,9 +263,11 @@ export default class ElectrcitiesController {
       method: 'post',
       url: 'https://www.epexspot.com/en/market-data?ajax_form=1&_wrapper_format=html&_wrapper_format=drupal_ajax',
       headers: {
+        'Accept': 'application/json',
+        'Cookie': 'epex-data-use-agreed=1; cookie-agreed-categories=["functional","analytics"]; cookie-agreed=2',
         'Host': 'www.epexspot.com',
         'Origin': 'https://www.epexspot.com',
-        'Referer': 'https://www.epexspot.com/en/market-data?market_area=AT&trading_date=2023-04-10&delivery_date=2023-04-11&underlying_year=&modality=Auction&sub_modality=DayAhead&technology=&product=60&data_mode=graph&period=&production_period='
+        'Referer': `https://www.epexspot.com/en/market-data?market_area=AT&trading_date=${encodeURIComponent(yesterdayDate)}&delivery_date=${encodeURIComponent(currentDate)}&underlying_year=&modality=Auction&sub_modality=DayAhead&technology=&product=60&data_mode=graph&period=&production_period=`
       },
       data: data,
       timeout: 0,
@@ -259,8 +277,8 @@ export default class ElectrcitiesController {
     await axios.request(config)
       .then((resp: { data: any; }) => {
         const main = {
-          peakload: resp.data[0].settings.charts.volume_period.peakload,
-          baseload: resp.data[0].settings.charts.volume_period.baseload
+          peakload: JSON.parse(resp.data[0].settings.charts.volume_period.peakload),
+          baseload: JSON.parse(resp.data[0].settings.charts.volume_period.baseload)
         }
 
         return response.json(main);
@@ -270,6 +288,12 @@ export default class ElectrcitiesController {
       });
 
   }
+
+
+
+
+
+
 }
 
 

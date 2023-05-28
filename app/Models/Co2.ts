@@ -5,6 +5,12 @@ export default class Co2 extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
+  @column()
+  public prix: number
+
+  @column()
+  public date_enregistrement: Date
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

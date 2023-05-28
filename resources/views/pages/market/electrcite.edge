@@ -258,27 +258,18 @@
         </h2>
         <div class="row">
           <div class=" w-full flex justify-evenly">
-            <div class="w-1/2 m-1">
+            <div class="w-full m-1">
 
-              <div class="relative max-w-sm">
+              <div class="relative max-w-full">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <i class="fa fa-calendar-days text-emerald-400"></i>
                 </div>
-                <input datepicker type="text"
-                  class="bg-gray-50 border border-none shadow text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                <input type="text" id="CalGazDates"
+                  class="anotherSelector bg-gray-50 border border-none shadow text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Selectionner une date">
               </div>
             </div>
-            <div class="w-1/2 m-1">
-              <div class="relative max-w-sm">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <i class="fa fa-calendar-days text-emerald-400"></i>
-                </div>
-                <input datepicker type="text"
-                  class="bg-gray-50 border border-none shadow text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Selectionner une date">
-              </div>
-            </div>
+
           </div>
         </div>
         <div id="chart1" class="cals shadow-md my-3"> </div>
