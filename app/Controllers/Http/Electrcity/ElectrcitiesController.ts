@@ -22,14 +22,16 @@ const day = String(now.getDate()).padStart(2, '0')
 const actualYear = (date.getFullYear()).toString().slice(2)
 const Actualdate = new Date().toISOString().toString().slice(0, 10)
 const jour = Actualdate.slice(8, 10)
-const mois = Actualdate.slice(5, 7)
+let mois = parseInt(Actualdate.slice(5, 7)) - 2
+const url = 'http://localhost:3333'
+
+
 
 
 export default class ElectrcitiesController {
 
 
-
-  public async electricityDetails({ response, request, params, view, session, auth }: HttpContextContract) {
+  public async electricityDetails({ view }: HttpContextContract) {
 
     function calculateAverage(numbers: any[]) {
       const sum = numbers.reduce((a, b) => a + b, 0)
@@ -37,12 +39,21 @@ export default class ElectrcitiesController {
       return avg
     }
 
-    const cal1Base = await axios.get(`http://127.0.0.1:3333/api/v1/elec/futur/debut/${year}-02-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 1}/B`)
-    const cal2Base = await axios.get(`http://127.0.0.1:3333/api/v1/elec/futur/debut/${year}-02-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 2}/B`)
-    const cal3Base = await axios.get(`http://127.0.0.1:3333/api/v1/elec/futur/debut/${year}-02-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 3}/B`)
-    const cal1Peak = await axios.get(`http://127.0.0.1:3333/api/v1/elec/futur/debut/${year}-02-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 1}/P`)
-    const cal2Peak = await axios.get(`http://127.0.0.1:3333/api/v1/elec/futur/debut/${year}-02-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 2}/P`)
-    const cal3Peak = await axios.get(`http://127.0.0.1:3333/api/v1/elec/futur/debut/${year}-02-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 3}/P`)
+    const month = (i: number) => {
+      if (i < 10) {
+        return `0${i}`
+      } else {
+        return `${i}`
+      }
+    }
+
+
+    const cal1Base = await axios.get(`${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 1}/B`)
+    const cal2Base = await axios.get(`${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 2}/B`)
+    const cal3Base = await axios.get(`${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 3}/B`)
+    const cal1Peak = await axios.get(`${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 1}/P`)
+    const cal2Peak = await axios.get(`${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 2}/P`)
+    const cal3Peak = await axios.get(`${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 3}/P`)
 
 
 
@@ -132,7 +143,7 @@ export default class ElectrcitiesController {
     return view.render('pages/market/electrcite', { cals, variations })
   }
 
-  public async electrcitySpot({ response, request, params, view, session, auth }: HttpContextContract) {
+  public async electrcitySpot({ response, params }: HttpContextContract) {
 
     const options = {
       method: 'POST',
@@ -158,7 +169,7 @@ export default class ElectrcitiesController {
     }
   }
 
-  public async electrcityFutur({ response, request, params, view, session, auth }: HttpContextContract) {
+  public async electrcityFutur({ response, params }: HttpContextContract) {
     const options = {
       method: 'GET',
       url: 'https://webservice-eex.gvsi.com/query/json/getDaily/close/offexchtradevolumeeex/onexchtradevolumeeex/tradedatetimegmt/',
@@ -180,7 +191,7 @@ export default class ElectrcitiesController {
     }
   }
 
-  public async electrcityFuturCals({ response, request, params, view, session, auth }: HttpContextContract) {
+  public async electrcityFuturCals({ response, params }: HttpContextContract) {
     const options = {
       method: 'GET',
       url: 'https://webservice-eex.gvsi.com/query/json/getChain/gv.pricesymbol/gv.displaydate/gv.expirationdate/tradedatetimegmt/gv.eexdeliverystart/ontradeprice/close/onexchsingletradevolume/onexchtradevolumeeex/offexchtradevolumeeex/openinterest/',
@@ -223,7 +234,7 @@ export default class ElectrcitiesController {
     }
   }
 
-  public async baseload({ response, request, params, view, session, auth }: HttpContextContract) {
+  public async baseload({ response }: HttpContextContract) {
 
     const sslCertificate = fs.readFileSync('app/Controllers/Http/Electrcity/epexspot.crt');
     const httpsAgent = new https.Agent({
@@ -288,11 +299,6 @@ export default class ElectrcitiesController {
       });
 
   }
-
-
-
-
-
 
 }
 

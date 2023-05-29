@@ -13,10 +13,16 @@ export default class CoalsController {
     return view.render('pages.db.charbon.create')
   }
 
-  public async store({ request, view }: HttpContextContract) {
-    await Coal.create(request.all())
+  public async store({ request, response }: HttpContextContract) {
+    const { prix, date_enregistrement } = request.body()
 
-    return view.render('pages.db.charbon.show', { Coal })
+    const coal = new Coal()
+    coal.prix = prix
+    coal.date_enregistrement = date_enregistrement
+    coal.save()
+
+    return response.redirect().toRoute('coal.index')
+
 
   }
 
@@ -39,10 +45,10 @@ export default class CoalsController {
     return view.render('pages.db.charbon.show', { coal })
   }
 
-  public async destroy({ view, params }: HttpContextContract) {
+  public async destroy({ response, params }: HttpContextContract) {
 
     const coal = await Coal.findOrFail((params.id))
     coal.delete()
-    return view.render('pages.db.charbon.index')
+    return response.redirect().toRoute('coal.index')
   }
 }

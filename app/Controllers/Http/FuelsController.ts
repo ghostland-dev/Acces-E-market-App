@@ -13,10 +13,16 @@ export default class FuelsController {
     return view.render('pages.db.petrole.create')
   }
 
-  public async store({ request, view }: HttpContextContract) {
-   const fuel = await Fuel.create(request.all())
+  public async store({ request, response }: HttpContextContract) {
 
-    return view.render('pages.db.petrole.show', { fuel })
+    const { prix, date_enregistrement } = request.body()
+
+    const fuel = new Fuel()
+    fuel.prix = prix
+    fuel.date_enregistrement = date_enregistrement
+    fuel.save()
+
+    return response.redirect().toRoute('fuel.index')
 
   }
 
@@ -39,10 +45,10 @@ export default class FuelsController {
     return view.render('pages.db.petrole.show', { fuel })
   }
 
-  public async destroy({ view, params }: HttpContextContract) {
+  public async destroy({ response, params }: HttpContextContract) {
 
     const fuel = await Fuel.findOrFail((params.id))
     fuel.delete()
-    return view.render('pages.db.petrole.index')
+    return response.redirect().toRoute('fuel.index')
   }
 }

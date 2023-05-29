@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Alert from 'App/Models/Alert'
-
+import Context from 'App/Helpers/Context';
 
 
 export default class AlertsController {
@@ -29,6 +29,7 @@ export default class AlertsController {
       return view.render('pages/alertes/index', { Alerts });
     } else {
       const Alerts = await Alert.all()
+      Context.setAlerts(Alerts);
       Alerts.findIndex((alert: Alert) => alert.userId === userId)
       return view.render('pages/alertes/index', { Alerts });
     }
@@ -79,10 +80,6 @@ export default class AlertsController {
     return response.redirect().toRoute('alertes')
   }
 
-  public async charbonAlert({ }: HttpContextContract) { }
-
-  public async Co2Alert({ }: HttpContextContract) { }
-
   public async edit({ view, params, session }: HttpContextContract) {
     const alert = await Alert.findOrFail(params.id)
 
@@ -130,7 +127,7 @@ export default class AlertsController {
   }
 
   public async delete({ params, response }: HttpContextContract) {
- 
+
     const alert = await Alert.findOrFail(params.id)
 
     await alert.delete()

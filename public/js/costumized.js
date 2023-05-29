@@ -3,4 +3,4 @@ flatpickr(".anotherSelector", {
     mode: "range"
 });
 
-alert('deede')
+ 

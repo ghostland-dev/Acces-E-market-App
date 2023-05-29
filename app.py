@@ -59,7 +59,7 @@ def get_electricity_data():
             power_date = str(energy_data[2]['data'][base]['x'])
             power_date = power_date[:10]
             power_date = "'" + date.fromtimestamp(int(power_date)).strftime('%c') + "'"
-            real_date = power_date[5:20]
+            real_date = power_date[0:16]
             dates_elec.append(real_date)
 
         baseload = baseload_elec

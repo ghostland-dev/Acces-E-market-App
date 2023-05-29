@@ -3,105 +3,108 @@
 @section('content')
 <div class="w-full flex flex-grow justify-center py-5">
 
-  <form class=" py-4 px-6  rounded-md shadow bg-white card w-1/2" action="{{ route('utilisateur.store') }}"
-    method="POST">
-    <h1 class="p-2 text-center text-2xl bg-sl ">Ajouter un nouveau ulisateur</h1>
+  <form class=" py-4 px-6  rounded-md shadow bg-white card w-1/2"
+    action="{{ route('utilisateur.update',{id: utilisateur.id}) }}" method="POST">
+    <h1 class="p-2 text-center text-xl bg-slate-50 rounded-md my-3">Modifier l'utilisateur</h1>
     {{ csrfField() }}
 
-    <div>
-      <label for="name" class="block text-sm font-medium text-gray-500">
-        Nom
-      </label>
-      <div class="mt-1">
-        <input id="name" name="name" type="text" value="{{ utilisateur.name }}"
-          class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
-          value="{{ flashMessages.get('name') || '' }}">
+    <div class="grid lg:grid-cols-2 md:grid-cols-2 gap-2  sm:grid-cols-1 ">
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-500">
+          Nom
+        </label>
+        <div class="mt-1">
+          <input id="name" name="name" type="text" value="{{ utilisateur.name }}"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('name') || '' }}">
+        </div>
+
+        @if (flashMessages.has('errors.name'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.name') }}
+        </p>
+        @endif
       </div>
 
-      @if (flashMessages.has('errors.name'))
-      <p class="text-xs text-red-500 mt-1">
-        {{ flashMessages.get('errors.name') }}
-      </p>
-      @endif
-    </div>
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-500">
+          adresse E-mail
+        </label>
+        <div class="mt-1">
+          <input id="email" name="email" type="email" value="{{ utilisateur.email }}"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('email') || '' }}">
+        </div>
 
-    <div>
-      <label for="email" class="block text-sm font-medium text-gray-500">
-        adresse E-mail
-      </label>
-      <div class="mt-1">
-        <input id="email" name="email" type="email" value="{{ utilisateur.email }}"
-          class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
-          value="{{ flashMessages.get('email') || '' }}">
+        @if (flashMessages.has('errors.email'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.email') }}
+        </p>
+        @endif
       </div>
 
-      @if (flashMessages.has('errors.email'))
-      <p class="text-xs text-red-500 mt-1">
-        {{ flashMessages.get('errors.email') }}
-      </p>
-      @endif
-    </div>
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-500">
+          Mot de passe
+        </label>
+        <div class="mt-1">
+          <input id="password" name="password" type="password"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm">
+        </div>
 
-    <div>
-      <label for="password" class="block text-sm font-medium text-gray-500">
-        Mot de passe
-      </label>
-      <div class="mt-1">
-        <input id="password" name="password" type="password"
-          class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm">
+        @if (flashMessages.has('errors.password'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.password') }}
+        </p>
+        @endif
       </div>
 
-      @if (flashMessages.has('errors.password'))
-      <p class="text-xs text-red-500 mt-1">
-        {{ flashMessages.get('errors.password') }}
-      </p>
-      @endif
-    </div>
+      <div>
+        <label for="password_confirmation" class="block text-sm font-medium text-gray-500">
+          Confirmation de mot de passe
+        </label>
+        <div class="mt-1">
+          <input id="password_confirmation" name="password_confirmation" type="password"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm">
+        </div>
 
-    <div>
-      <label for="password_confirmation" class="block text-sm font-medium text-gray-500">
-        Confirmation de mot de passe
-      </label>
-      <div class="mt-1">
-        <input id="password_confirmation" name="password_confirmation" type="password"
-          class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm">
+        @if (flashMessages.has('errors.password_confirmation'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.password_confirmation') }}
+        </p>
+        @endif
       </div>
+      <div>
+        <label for="role" class="block text-sm font-medium text-gray-500">
+          Role
+        </label>
+        <div class="mt-1">
+          <select id="role" name="role"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <option>Selectionnez un role</option>
+            <option {{ utilisateur.role=='administrateur' ? 'selected' :'' }} value="administrateur">administrateur
+            </option>
+            <option {{ utilisateur.role=='commercial' ? 'selected' :'' }} value="commercial">commercial(e)</option>
+            <option {{ utilisateur.role=='visiteur' ? 'selected' :'' }} value="visiteur">visiteur</option>
+            <option {{ utilisateur.role=='client' ? 'selected' :'' }} value="client">client</option>
+          </select>
+        </div>
 
-      @if (flashMessages.has('errors.password_confirmation'))
-      <p class="text-xs text-red-500 mt-1">
-        {{ flashMessages.get('errors.password_confirmation') }}
-      </p>
-      @endif
-    </div>
-    <div>
-      <label for="role" class="block text-sm font-medium text-gray-500">
-        Role
-      </label>
-      <div class="mt-1">
-        <select id="role" name="role"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-          <option>Selectionnez un role</option>
-          <option {{ utilisateur.role=='administrateur' ? 'selected' :'' }} value="administrateur">administrateur
-          </option>
-          <option {{ utilisateur.role=='commercial' ? 'selected' :'' }} value="commercial">commercial(e)</option>
-          <option {{ utilisateur.role=='visiteur' ? 'selected' :'' }} value="visiteur">visiteur</option>
-          <option {{ utilisateur.role=='client' ? 'selected' :'' }} value="client">client</option>
-        </select>
+        @if (flashMessages.has('errors.role'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.role') }}
+        </p>
+        @endif
       </div>
-
-      @if (flashMessages.has('errors.role'))
-      <p class="text-xs text-red-500 mt-1">
-        {{ flashMessages.get('errors.role') }}
-      </p>
-      @endif
     </div>
-
     <div>
       <button type="submit"
         class="w-full flex justify-center my-4 p-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-emerald-400 hover:bg-emerald-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-700">
         Ajouter
       </button>
     </div>
+
+
   </form>
 
 </div>

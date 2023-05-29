@@ -14,10 +14,15 @@ export default class Co2sController {
     return view.render('pages.db.co2.create')
   }
 
-  public async store({ request, view }: HttpContextContract) {
-    await Co2.create(request.all())
+  public async store({ request, response }: HttpContextContract) {
+    const { prix, date_enregistrement } = request.body()
 
-    return view.render('pages.db.co2.show', { Co2 })
+    const co2 = new Co2()
+    co2.prix = prix
+    co2.date_enregistrement = date_enregistrement
+    co2.save()
+
+    return response.redirect().toRoute('co2.index')
 
   }
 
@@ -40,10 +45,10 @@ export default class Co2sController {
     return view.render('pages.db.co2.show', { co2 })
   }
 
-  public async destroy({ view, params }: HttpContextContract) {
+  public async destroy({ response, params }: HttpContextContract) {
 
     const co2 = await Co2.findOrFail((params.id))
     co2.delete()
-    return view.render('pages.db.co2.index')
+    return response.redirect().toRoute('co2.index')
   }
 }

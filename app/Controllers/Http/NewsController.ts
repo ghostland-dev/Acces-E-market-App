@@ -2,11 +2,38 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import News from 'App/Models/News'
 
 export default class NewsController {
-  public async index({ view }: HttpContextContract) {
+  public async index({  request , view  }: HttpContextContract) {
 
-    const Fuels = await News.all()
+    let query = request.all()?.query;
 
-    return view.render('pages.db.news.index', { Fuels })
+
+    if (query != null) {
+
+
+      const news = await News.query()
+        .where((queryBuilder) => {
+          queryBuilder
+            .whereILike('titre', `%${query}%`)
+            .orWhereILike('resumee', `%${query}%`)
+            .orWhereILike('auteur', `%${query}%`);
+        })
+        .where('publie', true)
+
+
+
+      return view.render('pages.db.news.index', { news })
+
+    } else {
+
+      const news = await News.query().where('publie', true)
+
+
+
+      return view.render('pages.db.news.index', { news })
+    }
+
+
+
   }
 
   public async create({ view }: HttpContextContract) {

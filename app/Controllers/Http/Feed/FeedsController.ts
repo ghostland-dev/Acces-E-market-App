@@ -3,7 +3,7 @@ import axios from 'axios'
 import '@ioc:Adonis/Core/BodyParser'
 
 export default class FeedsController {
-  public async newsFlow({ response, request, params, view, session, auth }: HttpContextContract) {
+  public async newsFlow({  request, view }: HttpContextContract) {
 
     let query = request.all()?.query || "energie";
     try {

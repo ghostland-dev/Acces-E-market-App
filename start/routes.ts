@@ -192,6 +192,24 @@ Route.group(() => {
   Route.post('fuel/:id/supprimer', 'FuelsController.destroy').as('fuel.destroy')
 
 
+  Route.get('coals', 'CoalsController.index').as('coal.index')
+  Route.get('coal/nouveau', 'CoalsController.create').as('coal.create')
+  Route.get('coal/:id/details', 'CoalsController.show').as('coal.show')
+  Route.get('coal/:id/editer', 'CoalsController.edit').as('coal.edit')
+  Route.post('coal/sauvgarder', 'CoalsController.store').as('coal.store')
+  Route.post(':id/coal/modifier', 'CoalsController.update').as('coal.update')
+  Route.post('coal/:id/supprimer', 'CoalsController.destroy').as('coal.destroy')
+
+
+  Route.get('news', 'NewsController.index').as('news.index')
+  Route.get('news/nouveau', 'NewsController.create').as('news.create')
+  Route.get('news/:id/details', 'NewsController.show').as('news.show')
+  Route.get('news/:id/editer', 'NewsController.edit').as('news.edit')
+  Route.post('news/sauvgarder', 'NewsController.store').as('news.store')
+  Route.post(':id/news/modifier', 'NewsController.update').as('news.update')
+  Route.post('news/:id/supprimer', 'NewsController.destroy').as('news.destroy')
+
+
 
 
 }).prefix('app/data/').middleware(['auth'])
