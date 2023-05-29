@@ -15,14 +15,14 @@ export default class UtilisateursController {
     return view.render('pages/utilisateurs/index', { utilisateurs })
   }
 
-  public async store({ request, response, view, auth }: HttpContextContract) {
+  public async store({ request, view }: HttpContextContract) {
     const data = request.only(['name', 'email', 'password', 'role'])
     const utilisateur = await User.create(data)
 
     return view.render('pages/utilisateurs/show', { utilisateur })
   }
 
-  public async show({ params, response, view, auth }: HttpContextContract) {
+  public async show({ params, response, view }: HttpContextContract) {
     const utilisateur = await User.find(params.id)
 
     if (!utilisateur) {
@@ -33,16 +33,16 @@ export default class UtilisateursController {
     return view.render('pages/utilisateurs/show', { utilisateur })
   }
 
-  public async edit({ params, response, view, auth }: HttpContextContract) {
+  public async edit({ params, view }: HttpContextContract) {
     const utilisateur = await User.find(params.id)
 
-  
+
 
     return view.render('pages/utilisateurs/edit', { utilisateur })
   }
 
 
-  public async update({ params, request, response, view, auth }: HttpContextContract) {
+  public async update({ params, request, response, view }: HttpContextContract) {
     const utilisateur = await User.find(params.id)
 
     if (!utilisateur) {
@@ -57,15 +57,15 @@ export default class UtilisateursController {
     return view
   }
 
-  public async destroy({ params, response, view, auth }: HttpContextContract) {
+  public async destroy({ params, response }: HttpContextContract) {
     const utilisateur = await User.find(params.id)
 
     if (!utilisateur) {
       response.status(404).json({ message: 'utilisateur introuvable' })
       return
     }
-
     await utilisateur.delete()
-    return response.redirect('/pages/utilisateurs/index')
+
+    return response.redirect().toRoute('utilisateur.index')
   }
 }

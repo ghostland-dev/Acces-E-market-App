@@ -8,11 +8,13 @@
             <img class="h-9" src="/Emarket_dark.svg" alt="" srcset="">
           </a>
         </div>
+
+
         @if(auth.isLoggedIn)
 
 
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
+          <div class="bg-white rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
             <a href="{{ route('dashboard') }}"
               class="  text-emerald-400  hover:text-emerald-600 text-sm font-medium h-2">Tableau
               de bord</a>
@@ -20,14 +22,14 @@
         </div>
 
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
+          <div class="bg-white rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
             <a href="{{ route('drivers') }}" class="  text-emerald-400  hover:text-emerald-600 text-sm font-medium h-2">
               Drivers</a>
           </div>
         </div>
 
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
+          <div class="bg-white rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
             <a href="{{ route('marketElec') }}"
               class="  text-emerald-400  hover:text-emerald-600 text-sm font-medium h-2">
               Marché Electrcité</a>
@@ -35,7 +37,7 @@
         </div>
 
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
+          <div class="bg-white rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
             <a href="{{ route('marketGaz') }}"
               class="  text-emerald-400   hover:text-emerald-600 text-sm font-medium h-2">
               Marché Gaz</a>
@@ -43,7 +45,7 @@
         </div>
 
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
+          <div class="bg-white rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
             <a href="{{ route('articles') }}"
               class="  text-emerald-400   hover:text-emerald-600 text-sm font-medium h-2">
               Articles</a>
@@ -51,28 +53,105 @@
         </div>
 
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
-            <a href="{{ route('notifications') }}"
+          <div class="bg-white rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
+            <a href="{{ route('news.index') }}"
               class="  text-emerald-400   hover:text-emerald-600 text-sm font-medium h-2">
-              Notifications <span class="bg-emerald-400 rounded-full text-white p-1 text-xs w-3">0</span></a>
+              Actualités </a>
           </div>
         </div>
 
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
+          <div class="bg-white rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
             <a href="{{ route('alertes') }}"
               class="  text-emerald-400   hover:text-emerald-600 text-sm font-medium h-2">
-              Alertes</a>
+              Alertes </a>
           </div>
         </div>
 
+
+
         <div class="hidden sm:block sm:ml-6">
-          <div class="bg-slate-50 rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
-            <a href="{{ route('utilisateur.index') }}"
-              class="  text-emerald-400   hover:text-emerald-600 text-sm font-medium h-2">
-              utilisateurs</a>
+          <div class="   line-clamp-1 space-x-4">
+
+            <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
+              class="flex items-center justify-between w-full  bg-white shadow p-2 rounded-md border-collapse  text-gray-400 text-bold ">
+              <i class="fa fa-cog mx-2"></i> Gestion
+            </button>
+            <!-- Dropdown menu -->
+            <div id="dropdownNavbar"
+              class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                <li>
+                  <a href="{{ route('utilisateur.index') }}"
+                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><i
+                      class="fa fa-users mx-2 text-emerald-400"></i>Utilisateurs</a>
+                </li>
+                <li aria-labelledby="dropdownNavbarLink">
+                  <button id="doubleDropdownButton" data-dropdown-toggle="doubleDropdown"
+                    data-dropdown-placement="right-start" type="button"
+                    class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <i class="fa fa-database mx-2 text-emerald-400"></i>Données <i
+                      class="fa fa-arrow-right"></i></button>
+                  <div id="doubleDropdown"
+                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="doubleDropdownButton">
+                      <li>
+                        <a href="{{ route('gaz.index') }}"
+                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"><i
+                            class="fa fa-database mx-2 text-emerald-400"></i>Gaz
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#"
+                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"><i
+                            class="fa fa-database mx-2 text-emerald-400"></i>Cals
+                          Gaz </a>
+                      </li>
+                      <li>
+                        <a href="{{ route('electricite.index') }}"
+                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"><i
+                            class="fa fa-database mx-2 text-emerald-400"></i>Elec
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#"
+                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"><i
+                            class="fa fa-database mx-2 text-emerald-400"></i>Cals
+                          Elec </a>
+                      </li>
+                      <li>
+                        <a href="{{ route('coal.index') }}"
+                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"><i
+                            class="fa fa-database mx-2 text-emerald-400"></i>Charbon</a>
+                      </li>
+                      <li>
+                        <a href="{{ route('co2.index') }}"
+                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"><i
+                            class="fa fa-database mx-2 text-emerald-400"></i>CO²</a>
+                      </li>
+                      <li>
+                        <a href="{{ route('fuel.index') }}"
+                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"><i
+                            class="fa fa-database mx-2 text-emerald-400"></i>Pétrole</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                {{-- <li>
+                  <a href="#"
+                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                </li> --}}
+              </ul>
+              {{-- <div class="py-1">
+                <a href="#"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Sign
+                  out</a>
+              </div> --}}
+            </div>
+
           </div>
         </div>
+
 
         @end
 
@@ -113,11 +192,11 @@
           </div>
           @else
           <a href="/login"
-            class="text-emerald-400 font-medium text-sm rounded-lg border bg-slate-50  border-gray-300 py-2 px-5 hover:text-emerald-400">
+            class="text-emerald-400 font-medium text-sm rounded-lg border bg-white  border-gray-300 py-2 px-5 hover:text-emerald-400">
             Se connecter
           </a>
           <a href="/register"
-            class="text-gray-600 font-medium text-sm rounded-lg border bg-slate-50   border-gray-300 py-2 px-5 hover:text-emerald-400">
+            class="text-gray-600 font-medium text-sm rounded-lg border bg-white   border-gray-300 py-2 px-5 hover:text-emerald-400">
             S'inscrire
           </a>
           @endif

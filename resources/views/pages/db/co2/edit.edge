@@ -1,124 +1,64 @@
 @layout('layouts/app')
 
 @section('content')
+<div class="w-full flex flex-grow justify-center py-5">
 
-<section class="bg-white dark:bg-gray-900">
-  <div class="max-w-2xl px-4 py-8 mx-auto lg:py-16">
-    <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Modifé l'alerte</h2>
-    <form action="{{ route('alerte.update',{ id: alert.id }) }}" method="POST">
-      {{ csrfField() }}
+  <form class=" py-4 px-6  rounded-md shadow bg-white card w-1/2" action="{{ route('co2.update',{id: co2.id}) }}"
+    method="POST">
+    <h1 class="p-2 text-center text-xl bg-slate-50 rounded-md my-3">Modifier le pirx de CO²</h1>
+    {{ csrfField() }}
 
-      <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-        <div class="sm:col-span-2">
-          <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Titre
-            d'alerte</label>
-          <input type="text" name="titre" id="titre" value="{{ alert.titre }}"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder=" un alerte pour le clinet Mr.Dupon " required="">
-        </div>
-        <div class="w-full">
-          <label for="energie" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Energies</label>
-          <select id="energie" name="energie" value="{{ alert.energie }}"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-            <option {{ alert.energie==null? 'selected' :'' }}>Selectionnez un type d'énérgie</option>
-            <option value="gaz" {{ alert.energie=='gaz' ? 'selected' :'' }}>Gaz</option>
-            <option value="electrecite" {{ alert.energie=='electrecite' ? 'selected' :'' }}>Electrcité</option>
-            <option value="charbon" {{ alert.energie=='charbon' ? 'selected' :'' }}>Charbon</option>
-            <option value="co2" {{ alert.energie=='co2' ? 'selected' :'' }}>CO2</option>
-            <option value="petrole" {{ alert.energie=='petrole' ? 'selected' :'' }}>Pétrole</option>
-          </select>
-        </div>
-        <div class="w-full">
-          <label for="type" name="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type
-            d'alerte</label>
-          <select id="type" name="type" value="{{ alert.type }}"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-            <option selected="">Selectionnez un type d'alerte</option>
-            <option value="informatif" {{ alert.type=='informatif' ? 'selected' :'' }}>Informatif</option>
-            <option value="Préventif" {{ alert.type=='Préventif' ? 'selected' :'' }}>Préventif</option>
-            <option value="Urgent" {{ alert.type=='Urgent' ? 'selected' :'' }}>Urgent</option>
-            <option value="Suivi de marché" {{ alert.type=='Suivi de marché' ? 'selected' :'' }}>Suivi de marché
-            </option>
-            <option value="Veuille de marché" {{ alert.type=='Veuille de marché' ? 'selected' :'' }}>Veuille de
-              marché</option>
-          </select>
-        </div>
-        <div>
-          <label for="max" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix min
-            (€/kw)</label>
-          <input type="number" name="max" id="max" value="{{ alert.max }}"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="0.00" required="">
-        </div>
-        <div>
-          <label for="min" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix max
-            (€/kw)</label>
-          <input type="number" name="min" id="min" value="{{ alert.min }}"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="0.00" required="">
+    <div class="grid lg:grid-cols-2 md:grid-cols-2 gap-2  sm:grid-cols-1 ">
+      <div>
+        <label for="prix" class="block text-sm font-medium text-gray-500">
+          Prix
+        </label>
+        <div class="mt-1">
+          <input id="prix" name="prix" type="number" value="{{ co2.prix }}"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('prix') || '' }}">
         </div>
 
-        <div>
-          <label for="nom" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"> Nom de
-            client</label>
-          <input type="text" name="nom" id="nom"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="Dupon" required="" value="{{ alert.nom  }}">
-        </div>
-
-        <div>
-          <label for="prenom" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Prenom</label>
-          <input type="text" name="prenom" id="prenom"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="Edward" required="" value="{{ alert.prenom  }}">
-        </div>
-
-        <div>
-          <label for="tel" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Téléphone</label>
-          <input type="number" name="tel" id="tel"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="07 00 00 00 00" required="" value="{{ alert.tel  }}">
-        </div>
-
-        <div>
-          <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">E-mail</label>
-          <input type="email" name="email" id="email"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="exemple@domain.fr" value="{{ alert.email ?? 'aucun' }}" required="">
-        </div>
-
-        <div>
-          <label for="siret" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">SIRET</label>
-          <input type="text" name="siret" id="siret"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="00000000" value="{{ alert.SIRET ?? 0  }}" required="">
-        </div>
-
-        <div>
-          <label for="actif" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Actif</label>
-          <input type="checkbox" name="actif" id="actif"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="00000000" {{ alert.actif?'checked':'' }}>
-        </div>
-
-        <div class="sm:col-span-3">
-          <label for="description" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Objectif de
-            l'alerte
-            d'alerte</label>
-          <textarea id="description" name="description" rows="8"
-            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="Information sur le client et ses besoins.">{{ alert.description ?? "aucune description n'as été fourni" }}</textarea>
-        </div>
-
-
-
+        @if (flashMessages.has('errors.prix'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.prix') }}
+        </p>
+        @endif
       </div>
+
+      <div>
+        <label for="date_enregistrement" class="block text-sm font-medium text-gray-500">
+          Prix d'enregistrement
+        </label>
+        <div class="mt-1">
+          <input id="date_enregistrement" name="date_enregistrement" type="datetime-local"
+            value="{{ co2.date_enregistrement }}"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('date_enregistrement') || '' }}">
+        </div>
+
+        @if (flashMessages.has('errors.date_enregistrement'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.date_enregistrement') }}
+        </p>
+        @endif
+      </div>
+
+
+
+
+    </div>
+    <div>
       <button type="submit"
-        class="inline-flex items-center bg-emerald-400 px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-        Appliquer les modifications
+        class="w-full flex justify-center my-4 p-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-emerald-400 hover:bg-emerald-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-700">
+        Mettre à jour
       </button>
-    </form>
-  </div>
-</section>
+    </div>
+
+
+  </form>
+
+</div>
+
 
 @endsection

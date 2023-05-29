@@ -13,18 +13,7 @@ export default class AuthController {
     try {
       await auth.attempt(email, password, remember)
 
-      if (auth.user?.role != 'master') {
 
-        session.flash({
-          notification: {
-            type: 'error',
-            message: "Désolé votre compte n'est pas authorisé de s'authentifié.😏",
-          },
-        })
-
-        return response.redirect().back()
-
-      } else {
         session.flash({
           notification: {
             type: 'success',
@@ -33,7 +22,7 @@ export default class AuthController {
         })
 
         return response.intended()
-      }
+
     } catch (error) {
       session.flash({
         notification: {
