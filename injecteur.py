@@ -89,7 +89,8 @@ while True:
     prix_max_peak_elec = max(Elecdata['PeakloadFiltred'])
     date_enregistrement = datetime.datetime.now()
 
- 
+    # print(prix_base_elec, prix_peak_elec, prix_min_base_elec, prix_avg_base_elec, prix_max_base_elec,prix_min_peak_elec, prix_avg_peak_elec, prix_max_peak_elec, date_enregistrement)
+
     # Insérer la nouvelle données dans la base de données de l'éléctrcité
     cursor.execute("INSERT INTO electrecities (prix_base, prix_peak, prix_min_base , prix_avg_base , prix_max_base ,prix_min_peak , prix_avg_peak , prix_max_peak , date_enregistrement) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                    (prix_base_elec, prix_peak_elec, prix_min_base_elec, prix_avg_base_elec, prix_max_base_elec, prix_min_peak_elec, prix_avg_peak_elec, prix_max_peak_elec, date_enregistrement))
@@ -128,7 +129,7 @@ while True:
     # Insérer la nouvelle données dans la base de données de CO²
     cursor.execute("INSERT INTO fuels (prix ,date_enregistrement) VALUES (%s,%s )",
                    (prix_base_fuel, date_enregistrement))
-    conn.commit()
+    conn.commit() 
     print('✅ Données de gaz pétroles avec succès !')
 
     # Attendre 24 heures
