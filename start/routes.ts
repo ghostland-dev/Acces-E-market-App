@@ -1,10 +1,9 @@
 import Route from '@ioc:Adonis/Core/Route'
 
-
-
-
-
-Route.post('/socket/price', "PrixesController.priceUpdate")
+Route.post('/socket/price', 'PrixesController.priceUpdate')
+Route.get('/options', async ({ view }) => {
+  return view.render('pages/db/options')
+}).as('options')
 
 Route.get('/', async ({ view }) => {
   return view.render('home')
@@ -18,7 +17,6 @@ Route.get('/', async ({ view }) => {
 |--------------------------------------------------------------------------|
 */
 
-
 // Route.group(() => {
 //   Route.get('/users', 'ApiController.getUsers')
 //   Route.get('/users/:id', 'ApiController.getUser')
@@ -27,12 +25,8 @@ Route.get('/', async ({ view }) => {
 //   Route.delete('/users/:id', 'ApiController.deleteUser')
 // }).prefix('/api/v1')
 
-
-
 Route.group(() => {
-
   Route.get('app/v1/electrcite/data', 'Electrcity/ElectrcitiesController.baseload').as('base.peak')
-
 
   /*
  |--------------------------------------------------------------------------|
@@ -42,12 +36,12 @@ Route.group(() => {
  |--------------------------------------------------------------------------|
  */
 
-  Route.get('marche-electrcite', 'Electrcity/ElectrcitiesController.electricityDetails').as('marketElec')
-  Route.get('/electricite-base-data', 'Electrcity/ElectrcitiesController.fetchElectricityData').as('baseDataElec')
-
-
-
-
+  Route.get('marche-electrcite', 'Electrcity/ElectrcitiesController.electricityDetails').as(
+    'marketElec'
+  )
+  Route.get('/electricite-base-data', 'Electrcity/ElectrcitiesController.fetchElectricityData').as(
+    'baseDataElec'
+  )
 
   /*
   |--------------------------------------------------------------------------|
@@ -58,8 +52,14 @@ Route.group(() => {
   */
 
   Route.get('/api/v1/gaz/fin-journee', 'Gaz/GazsController.endOfDay').as('gazEndOfDay')
-  Route.get('/api/v1/gaz/spot/start/:start/end/:end/:interval/:order', 'Gaz/GazsController.gazSpot').as('gazSpot')
-  Route.get('/api/v1/gaz/futur/start/:start/end/:end/:interval/:order/:cal', 'Gaz/GazsController.gazFutur').as('futurGaz')
+  Route.get(
+    '/api/v1/gaz/spot/start/:start/end/:end/:interval/:order',
+    'Gaz/GazsController.gazSpot'
+  ).as('gazSpot')
+  Route.get(
+    '/api/v1/gaz/futur/start/:start/end/:end/:interval/:order/:cal',
+    'Gaz/GazsController.gazFutur'
+  ).as('futurGaz')
 
   /*
   |--------------------------------------------------------------------------|
@@ -69,9 +69,17 @@ Route.group(() => {
   |--------------------------------------------------------------------------|
   */
 
-  Route.get('/api/v1/elec/spot/:period', 'Electrcity/ElectrcitiesController.electrcitySpot').as('elecSpot')
-  Route.get('/api/v1/elec/futur/debut/:start/fin/:end/:interval/:order/:calenderier/:type', 'Electrcity/ElectrcitiesController.electrcityFutur').as('elecFutur')
-  Route.get('/api/v1/elec/futur/expiration/:expDate/option/:option/interval/:interval', 'Electrcity/ElectrcitiesController.electrcityFuturCals').as('elecFuturCals')
+  Route.get('/api/v1/elec/spot/:period', 'Electrcity/ElectrcitiesController.electrcitySpot').as(
+    'elecSpot'
+  )
+  Route.get(
+    '/api/v1/elec/futur/debut/:start/fin/:end/:interval/:order/:calenderier/:type',
+    'Electrcity/ElectrcitiesController.electrcityFutur'
+  ).as('elecFutur')
+  Route.get(
+    '/api/v1/elec/futur/expiration/:expDate/option/:option/interval/:interval',
+    'Electrcity/ElectrcitiesController.electrcityFuturCals'
+  ).as('elecFuturCals')
   Route.get('/api/v1/elec/data', 'Electrcity/ElectrcitiesController.baseload').as('base')
   Route.get('/api/v1/elec/text', 'Electrcity/ElectrcitiesController.testing').as('test')
 
@@ -83,14 +91,14 @@ Route.group(() => {
   |--------------------------------------------------------------------------|
   */
 
-  Route.get('/api/v1/e-market/petrole/period/:period', 'Drivers/DriversController.petrole').as('petrole')
-  Route.get('/api/v1/e-market/charbon/period/:period', 'Drivers/DriversController.charbon').as('charbon')
+  Route.get('/api/v1/e-market/petrole/period/:period', 'Drivers/DriversController.petrole').as(
+    'petrole'
+  )
+  Route.get('/api/v1/e-market/charbon/period/:period', 'Drivers/DriversController.charbon').as(
+    'charbon'
+  )
   Route.get('/api/v1/e-market/co2/period/:period', 'Drivers/DriversController.co2').as('co2')
-
-
-
 })
-
 
 Route.group(() => {
   /*
@@ -120,7 +128,6 @@ Route.group(() => {
   */
   Route.get('drivers', 'Drivers/DriversController.drivers').as('drivers')
 
-
   /*
   |--------------------------------------------------------------------------|
   | 1. Notification
@@ -135,16 +142,15 @@ Route.group(() => {
   Route.post('alertes/modifier/:id', 'AlertsController.update').as('alerte.update')
   Route.get('alertes/details/:id', 'AlertsController.show').as('alerte.show')
 
-
-
   Route.get('utilisateurs', 'UtilisateursController.index').as('utilisateur.index')
   Route.get('utilisateur/nouveau', 'UtilisateursController.create').as('utilisateur.create')
   Route.get('utilisateur/:id/details', 'UtilisateursController.show').as('utilisateur.show')
   Route.get('utilisateur/:id/editer', 'UtilisateursController.edit').as('utilisateur.edit')
   Route.post('utilisateur/sauvgarder', 'UtilisateursController.store').as('utilisateur.store')
   Route.post(':id/utilisateur/modifier', 'UtilisateursController.update').as('utilisateur.update')
-  Route.post('utilisateur/:id/supprimer', 'UtilisateursController.destroy').as('utilisateur.destroy')
-
+  Route.post('utilisateur/:id/supprimer', 'UtilisateursController.destroy').as(
+    'utilisateur.destroy'
+  )
 
   Route.get('electricites', 'PrixelecsController.index').as('electricite.index')
   Route.get('electricite/nouveau', 'PrixelecsController.create').as('electricite.create')
@@ -154,7 +160,6 @@ Route.group(() => {
   Route.post(':id/electricite/modifier', 'PrixelecsController.update').as('electricite.update')
   Route.post('electricite/:id/supprimer', 'PrixelecsController.destroy').as('electricite.destroy')
 
-
   Route.get('gazs', 'PrixgazsController.index').as('gaz.index')
   Route.get('gaz/nouveau', 'PrixgazsController.create').as('gaz.create')
   Route.get('gaz/:id/details', 'PrixgazsController.show').as('gaz.show')
@@ -162,7 +167,6 @@ Route.group(() => {
   Route.post('gaz/sauvgarder', 'PrixgazsController.store').as('gaz.store')
   Route.post(':id/gaz/modifier', 'PrixgazsController.update').as('gaz.update')
   Route.post('gaz/:id/supprimer', 'PrixgazsController.destroy').as('gaz.destroy')
-
 
   Route.get('charbons', 'CoalsController.index').as('charbon.index')
   Route.get('charbon/nouveau', 'CoalsController.create').as('charbon.create')
@@ -172,7 +176,6 @@ Route.group(() => {
   Route.post(':id/charbon/modifier', 'CoalsController.update').as('charbon.update')
   Route.post('charbon/:id/supprimer', 'CoalsController.destroy').as('charbon.destroy')
 
-
   Route.get('co2s', 'Co2sController.index').as('co2.index')
   Route.get('co2/nouveau', 'Co2sController.create').as('co2.create')
   Route.get('co2/:id/details', 'Co2sController.show').as('co2.show')
@@ -180,8 +183,6 @@ Route.group(() => {
   Route.post('co2/sauvgarder', 'Co2sController.store').as('co2.store')
   Route.post(':id/co2/modifier', 'Co2sController.update').as('co2.update')
   Route.post('co2/:id/supprimer', 'Co2sController.destroy').as('co2.destroy')
-
-
 
   Route.get('fuels', 'FuelsController.index').as('fuel.index')
   Route.get('fuel/nouveau', 'FuelsController.create').as('fuel.create')
@@ -191,7 +192,6 @@ Route.group(() => {
   Route.post(':id/fuel/modifier', 'FuelsController.update').as('fuel.update')
   Route.post('fuel/:id/supprimer', 'FuelsController.destroy').as('fuel.destroy')
 
-
   Route.get('coals', 'CoalsController.index').as('coal.index')
   Route.get('coal/nouveau', 'CoalsController.create').as('coal.create')
   Route.get('coal/:id/details', 'CoalsController.show').as('coal.show')
@@ -200,7 +200,6 @@ Route.group(() => {
   Route.post(':id/coal/modifier', 'CoalsController.update').as('coal.update')
   Route.post('coal/:id/supprimer', 'CoalsController.destroy').as('coal.destroy')
 
-
   Route.get('news', 'NewsController.index').as('news.index')
   Route.get('news/nouveau', 'NewsController.create').as('news.create')
   Route.get('news/:id/details', 'NewsController.show').as('news.show')
@@ -208,11 +207,9 @@ Route.group(() => {
   Route.post('news/sauvgarder', 'NewsController.store').as('news.store')
   Route.post(':id/news/modifier', 'NewsController.update').as('news.update')
   Route.post('news/:id/supprimer', 'NewsController.destroy').as('news.destroy')
-
-
-
-
-}).prefix('app/data/').middleware(['auth'])
+})
+  .prefix('app/data/')
+  .middleware(['auth'])
 
 /*
  |--------------------------------------------------------------------------|
@@ -243,9 +240,5 @@ Route.group(() => {
     Route.get('confirm-password', 'ConfirmPasswordController.create')
     Route.post('confirm-password', 'ConfirmPasswordController.store')
     Route.post('logout', 'AuthController.destroy')
-
   }).middleware('auth')
 }).namespace('App/Controllers/Http/Auth')
-
-
-

@@ -5,6 +5,7 @@ from datetime import date, timedelta
 
 app = Flask(__name__)
 
+
 @app.route('/electricity', methods=['GET'])
 def get_electricity_data():
     # Your electricity function code here
@@ -26,7 +27,7 @@ def get_electricity_data():
             'filters[delivery_date]': delivery_date,
             'filters[product]': '60',
             'filters[data_mode]': 'graph',
-            'filters[market_area]': 'AT',
+            'filters[market_area]': 'FR',
             'filters[period]': 'year',
             'triggered_element': 'filters[data_mode]',
             'first_triggered_date': '',
@@ -41,7 +42,8 @@ def get_electricity_data():
         }
 
         response = requests.post(url, headers=headers, data=data)
-        energy_data = json.loads(json.loads(response.text)[0]['settings']['charts']['price'])
+        energy_data = json.loads(json.loads(response.text)[
+                                 0]['settings']['charts']['price'])
 
         peakload_actuel = energy_data[2]['data']
         baseload_actuel = energy_data[1]['data']
@@ -58,7 +60,8 @@ def get_electricity_data():
             peakload_elec.append(energy_data[2]['data'][base]['y'])
             power_date = str(energy_data[2]['data'][base]['x'])
             power_date = power_date[:10]
-            power_date = "'" + date.fromtimestamp(int(power_date)).strftime('%c') + "'"
+            power_date = "'" + \
+                date.fromtimestamp(int(power_date)).strftime('%c') + "'"
             real_date = power_date[0:16]
             dates_elec.append(real_date)
 
@@ -76,11 +79,14 @@ def get_electricity_data():
         }
 
     # Get query parameters or use default values
-    trading_date = request.args.get('trading_date', date.today().strftime("%Y-%m-%d"))
-    delivery_date = request.args.get('delivery_date', (date.today() + timedelta(days=1)).strftime("%Y-%m-%d"))
+    trading_date = request.args.get(
+        'trading_date', date.today().strftime("%Y-%m-%d"))
+    delivery_date = request.args.get(
+        'delivery_date', (date.today() + timedelta(days=1)).strftime("%Y-%m-%d"))
 
     data = electricity(trading_date, delivery_date)
     return jsonify(data)
+
 
 if __name__ == '__main__':
     app.run(port=8000)
