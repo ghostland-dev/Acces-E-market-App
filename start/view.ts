@@ -1,5 +1,4 @@
-import { ApplicationContract } from '@ioc:Adonis/Core/Application';
-import { fetchAlerts } from 'App/Utils/ViewGlobals';
+import { ApplicationContract } from '@ioc:Adonis/Core/Application'
 
 export default class ViewProvider {
   constructor(protected app: ApplicationContract) {}
@@ -10,8 +9,6 @@ export default class ViewProvider {
 
   public boot() {
     // Add `fetchAlerts` as a global view variable
-    this.app.container.withBindings(['Adonis/Core/View'], (View) => {
-      View.global('fetchAlerts', fetchAlerts);
-    });
+    this.app.container.withBindings(['Adonis/Core/View'], (_View) => {})
   }
 }

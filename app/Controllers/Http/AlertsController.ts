@@ -1,16 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Alert from 'App/Models/Alert'
-import Context from 'App/Helpers/Context';
-
 
 export default class AlertsController {
   public async Alerts({ request, view, auth }: HttpContextContract) {
     const userId = auth.user?.id ? auth.user.id : 1
-    const searchQuery = request.input('search');
-
+    const searchQuery = request.input('search')
 
     if (searchQuery) {
-
       const Alerts = await Alert.query()
         .where('nom', 'like', `%${searchQuery}%`)
         .orWhere('prenom', 'like', `%${searchQuery}%`)
@@ -24,16 +20,13 @@ export default class AlertsController {
 
       Alerts.findIndex((alert: Alert) => alert.userId === userId)
 
-
-
-      return view.render('pages/alertes/index', { Alerts });
+      return view.render('pages/alertes/index', { Alerts })
     } else {
       const Alerts = await Alert.all()
-      Context.setAlerts(Alerts);
-      Alerts.findIndex((alert: Alert) => alert.userId === userId)
-      return view.render('pages/alertes/index', { Alerts });
-    }
 
+      Alerts.findIndex((alert: Alert) => alert.userId === userId)
+      return view.render('pages/alertes/index', { Alerts })
+    }
   }
   public async show({ params, view, session }: HttpContextContract) {
     const alert = await Alert.findOrFail(params.id)
@@ -49,7 +42,8 @@ export default class AlertsController {
   }
 
   public async create({ request, response, session, auth }: HttpContextContract) {
-    const { titre, min, max, type, energie, description, nom, prenom, tel, email, siret, actif } = request.body()
+    const { titre, min, max, type, energie, description, nom, prenom, tel, email, siret, actif } =
+      request.body()
 
     const id = auth.user?.id ?? 1
 
@@ -91,13 +85,13 @@ export default class AlertsController {
     })
 
     return view.render('pages/alertes/edit', { alert })
-
   }
 
   public async update({ params, request, response, session }: HttpContextContract) {
     const alert = await Alert.findOrFail(params.id)
 
-    const { titre, min, max, type, energie, description, nom, prenom, tel, email, siret, actif } = request.body()
+    const { titre, min, max, type, energie, description, nom, prenom, tel, email, siret, actif } =
+      request.body()
 
     alert.actif = actif ? true : false
     alert.titre = titre
@@ -112,8 +106,6 @@ export default class AlertsController {
     alert.energie = energie
     alert.description = description
 
-
-
     await alert.save()
 
     session.flash({
@@ -127,14 +119,12 @@ export default class AlertsController {
   }
 
   public async delete({ params, response }: HttpContextContract) {
-
     const alert = await Alert.findOrFail(params.id)
 
     await alert.delete()
 
     return response.redirect().toRoute('alertes')
   }
-
 
   public async deleteAll({ response, session }: HttpContextContract) {
     session.flash({

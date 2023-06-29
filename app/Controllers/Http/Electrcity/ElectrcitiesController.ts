@@ -297,7 +297,7 @@ export default class ElectrcitiesController {
 
     // Yesterday's date
     const yesterdayDate = moment().subtract(1, 'days').format('D MMM. YYYY')
-    const tomorrowDate = moment().add(1, 'days').format('D MMM. YYYY')
+    // const tomorrowDate = moment().add(1, 'days').format('D MMM. YYYY')
 
     let data = new FormData()
     data.append('filters[modality]', 'Auction')

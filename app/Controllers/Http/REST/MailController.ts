@@ -7,7 +7,7 @@ const date = new Date().toISOString().slice(0, 10)
 const thisYear = parseInt(new Date().toISOString().slice(2, 4))
 
 export default class MailController {
-  public async alerteSend({ view, params, request, response }: HttpContextContract) {
+  public async alerteSend({ params, request, response }: HttpContextContract) {
     const { id } = params
     const url = request.protocol() + '://' + request.host()
 
