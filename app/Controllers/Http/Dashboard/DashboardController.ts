@@ -9,7 +9,6 @@ export default class DashboardController {
   public async dashboard({ view, params, request }: HttpContextContract) {
     const { id } = params
     const url = request.protocol() + '://' + request.host()
-    console.log(url)
 
     let electrcite: AxiosResponse<any, any>
     let gaz: AxiosResponse<any, any>

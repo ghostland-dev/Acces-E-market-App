@@ -3,13 +3,14 @@ import random
 import mysql.connector
 import datetime
 import requests
+hoster="127.0.0.1"
 date = datetime.datetime.now().isoformat()[:10]
 thisYear = int(datetime.datetime.now().isoformat()[2:4])
-Elecurl = "http://localhost:3333/electricite-base-data"
-Gazurl = f"http://localhost:3333/api/v1/gaz/futur/start/2022-01-01/end/{date}/Days/First/{thisYear + 1}"
-Coalurl = "http://localhost:3333/api/v1/e-market/charbon/period/3"
-Co2url = "http://localhost:3333/api/v1/e-market/co2/period/3"
-Fuelurl = "http://localhost:3333/api/v1/e-market/petrole/period/3"
+Elecurl = f"http://{hoster}:3333/electricite-base-data"
+Gazurl = f"http://{hoster}:3333/api/v1/gaz/futur/start/2022-01-01/end/{date}/Days/First/{thisYear + 1}"
+Coalurl = f"http://{hoster}:3333/api/v1/e-market/charbon/period/3"
+Co2url = f"http://{hoster}:3333/api/v1/e-market/co2/period/3"
+Fuelurl = f"http://{hoster}:3333/api/v1/e-market/petrole/period/3"
 
 # Connexion à la base de données MySQL
 conn = mysql.connector.connect(
@@ -97,15 +98,15 @@ while True:
     conn.commit()
     print('✅ Données d\'éléctrcité injectées avec succès !')
 
-    prix_base_gaz = Gazprices[-1]
-    prix_min_base_gaz = min(Gazprices)
-    prix_avg_base_gaz = round(sum(Gazprices) / len(Gazprices))
-    prix_max_base_gaz = max(Gazprices)
+    # prix_base_gaz = Gazprices[-1]
+    # prix_min_base_gaz = min(Gazprices)
+    # prix_avg_base_gaz = round(sum(Gazprices) / len(Gazprices))
+    # prix_max_base_gaz = max(Gazprices)
 
-    # Insérer la nouvelle données dans la base de données de gaz
-    cursor.execute("INSERT INTO gazs (prix_base , prix_min_base , prix_avg_base ,prix_max_base  ,date_enregistrement) VALUES (%s,%s,%s,%s,%s)",
-                   (prix_base_gaz, prix_min_base_gaz, prix_avg_base_gaz, prix_max_base_gaz, date_enregistrement))
-    conn.commit()
+    # # Insérer la nouvelle données dans la base de données de gaz
+    # cursor.execute("INSERT INTO gazs (prix_base , prix_min_base , prix_avg_base ,prix_max_base  ,date_enregistrement) VALUES (%s,%s,%s,%s,%s)",
+    #                (prix_base_gaz, prix_min_base_gaz, prix_avg_base_gaz, prix_max_base_gaz, date_enregistrement))
+    # conn.commit()
     print('✅ Données de gaz injectées avec succès !')
 
     prix_base_coal = Coalprices[-1]
@@ -129,7 +130,7 @@ while True:
     # Insérer la nouvelle données dans la base de données de CO²
     cursor.execute("INSERT INTO fuels (prix ,date_enregistrement) VALUES (%s,%s )",
                    (prix_base_fuel, date_enregistrement))
-    conn.commit() 
+    conn.commit()
     print('✅ Données de gaz pétroles avec succès !')
 
     # Attendre 24 heures

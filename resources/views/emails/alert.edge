@@ -83,15 +83,19 @@
 
 <body class="pad">
   <div class="container">
-    <h1>Alerte des prix</h1>
-    <p>Bonjour,</p>
+    <h1>Alerte des prix {{ element.energie }}</h1>
+    <p>Bonjour {{ element.nom }},</p>
+    <h2>{{ element.titre }}</h2>
     <p>Nous avons détecté un changement de prix.</p>
     <p>Pour plus de détails, veuillez consulter les informations ci-dessous :</p>
 
     <!-- Insérer les détails du prix changé ici -->
-    <p class="data ">Nom du produit : <b class="prix"> {{ nomProduit }}</b></p>
-    <p class="data ">Prix précédent : <b class="prix"> {{ prixPrecedent }}</b></p>
-    <p class="data ">Nouveau prix : <b class="prix"> {{ nouveauPrix }}</b></p>
+    <p class="data ">Nom du produit : <b class="prix"> {{ element.energie }}</b></p>
+    <p class="data ">Prix Maximum : <b class="prix"> {{ element.max }}</b></p>
+    <p class="data ">Prix Minimum : <b class="prix"> {{ element.min }}</b></p>
+    <p class="data ">Prix Baseload (Elec) : <b class="prix"> {{ energieData.electrcite.lastBaseload }} €</b></p>
+    <p class="data ">Prix Peakload (Elec) : <b class="prix"> {{ energieData.electrcite.lastBaseload }} €</b></p>
+    <p class="data ">Prix Baseload (Gaz) : <b class="prix"> {{ energieData.gaz.lastBaseload }} €</b></p>
 
     <p>Si vous avez des questions ou avez besoin d'assistance, n'hésitez pas à nous contacter.</p>
 

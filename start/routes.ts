@@ -1,6 +1,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.post('/socket/price', 'PrixesController.priceUpdate')
+Route.get('/sendmailer', 'REST/MailController.alerteSend')
 Route.get('/options', async ({ view }) => {
   return view.render('pages/db/options')
 }).as('options')
