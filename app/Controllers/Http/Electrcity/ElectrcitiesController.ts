@@ -22,10 +22,11 @@ const actualYear = date.getFullYear().toString().slice(2)
 const Actualdate = new Date().toISOString().toString().slice(0, 10)
 const jour = Actualdate.slice(8, 10)
 let mois = parseInt(Actualdate.slice(5, 7)) - 2
-const url = 'http://127.0.01:3333'
+
 
 export default class ElectrcitiesController {
-  public async electricityDetails({ view }: HttpContextContract) {
+  public async electricityDetails({ view, request }: HttpContextContract) {
+    const url = request.protocol() + '://' + request.host()
     function calculateAverage(numbers: any[]) {
       const sum = numbers.reduce((a, b) => a + b, 0)
       const avg = Math.round(sum / numbers.length)
@@ -41,33 +42,27 @@ export default class ElectrcitiesController {
     }
 
     const cal1Base = await axios.get(
-      `${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${
-        parseInt(actualYear) + 1
+      `${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 1
       }/B`
     )
     const cal2Base = await axios.get(
-      `${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${
-        parseInt(actualYear) + 2
+      `${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 2
       }/B`
     )
     const cal3Base = await axios.get(
-      `${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${
-        parseInt(actualYear) + 3
+      `${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 3
       }/B`
     )
     const cal1Peak = await axios.get(
-      `${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${
-        parseInt(actualYear) + 1
+      `${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 1
       }/P`
     )
     const cal2Peak = await axios.get(
-      `${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${
-        parseInt(actualYear) + 2
+      `${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 2
       }/P`
     )
     const cal3Peak = await axios.get(
-      `${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${
-        parseInt(actualYear) + 3
+      `${url}/api/v1/elec/futur/debut/${year}-${month(mois)}-${jour}/fin/${Actualdate}/Days/First/${parseInt(actualYear) + 3
       }/P`
     )
 
@@ -123,7 +118,7 @@ export default class ElectrcitiesController {
           last: cals.Peak.cal1.prices[cals.Peak.cal1.prices.length - 1],
           variat: Math.round(
             cals.Peak.cal1.prices[cals.Peak.cal1.prices.length - 1] -
-              cals.Peak.cal1.prices[cals.Peak.cal1.prices.length - 5]
+            cals.Peak.cal1.prices[cals.Peak.cal1.prices.length - 5]
           ),
         },
         cal2: {
@@ -133,7 +128,7 @@ export default class ElectrcitiesController {
           last: cals.Peak.cal2.prices[cals.Peak.cal2.prices.length - 1],
           variat: Math.round(
             cals.Peak.cal1.prices[cals.Peak.cal2.prices.length - 1] -
-              cals.Peak.cal2.prices[cals.Peak.cal2.prices.length - 5]
+            cals.Peak.cal2.prices[cals.Peak.cal2.prices.length - 5]
           ),
         },
         cal3: {
@@ -143,7 +138,7 @@ export default class ElectrcitiesController {
           last: cals.Peak.cal3.prices[cals.Peak.cal3.prices.length - 1],
           variat: Math.round(
             cals.Peak.cal1.prices[cals.Peak.cal3.prices.length - 1] -
-              cals.Peak.cal3.prices[cals.Peak.cal3.prices.length - 5]
+            cals.Peak.cal3.prices[cals.Peak.cal3.prices.length - 5]
           ),
         },
       },
@@ -155,7 +150,7 @@ export default class ElectrcitiesController {
           last: cals.Base.cal1.prices[cals.Base.cal1.prices.length - 1],
           variat: Math.round(
             cals.Base.cal1.prices[cals.Base.cal1.prices.length - 1] -
-              cals.Base.cal1.prices[cals.Base.cal1.prices.length - 5]
+            cals.Base.cal1.prices[cals.Base.cal1.prices.length - 5]
           ),
         },
         cal2: {
@@ -165,7 +160,7 @@ export default class ElectrcitiesController {
           last: cals.Base.cal2.prices[cals.Base.cal2.prices.length - 1],
           variat: Math.round(
             cals.Base.cal2.prices[cals.Base.cal2.prices.length - 1] -
-              cals.Base.cal2.prices[cals.Base.cal2.prices.length - 5]
+            cals.Base.cal2.prices[cals.Base.cal2.prices.length - 5]
           ),
         },
         cal3: {
@@ -175,7 +170,7 @@ export default class ElectrcitiesController {
           last: cals.Base.cal3.prices[cals.Base.cal3.prices.length - 1],
           variat: Math.round(
             cals.Base.cal3.prices[cals.Base.cal3.prices.length - 1] -
-              cals.Base.cal3.prices[cals.Base.cal3.prices.length - 5]
+            cals.Base.cal3.prices[cals.Base.cal3.prices.length - 5]
           ),
         },
       },
@@ -193,19 +188,15 @@ export default class ElectrcitiesController {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Connection': 'keep-alive',
         'Host': 'www.epexspot.com',
-        'Referer': `https://www.epexspot.com/en/market-data?market_area=AT&trading_date=${year}-${month}-${day}&delivery_date=${year}-${month}-${
-          day + 1
-        }&underlying_year=&modality=Auction&sub_modality=DayAhead&product=60&data_mode=graph&period=${
-          params.period
-        }`,
+        'Referer': `https://www.epexspot.com/en/market-data?market_area=AT&trading_date=${year}-${month}-${day}&delivery_date=${year}-${month}-${day + 1
+          }&underlying_year=&modality=Auction&sub_modality=DayAhead&product=60&data_mode=graph&period=${params.period
+          }`,
         'ajax_form': '1',
         '_wrapper_format': 'drupal_ajax',
       },
-      data: `filters%5Bmodality%5D=Auction&filters%5Bsub_modality%5D=DayAhead&filters%5Btrading_date%5D=${day}%20${month}%20${year}&filters%5Bdelivery_date%5D=${
-        day + 1
-      }%20${month}%20${year}&filters%5Bproduct%5D=60&filters%5Bdata_mode%5D=graph&filters%5Bmarket_area%5D=AT&filters%5Bperiod%5D=${
-        params.period
-      }&triggered_element=filters%5Bdata_mode%5D&first_triggered_date=&form_build_id=form-PtdHvSGPvXq4x0229zJXzzvgM0b6FfyjO2BZWzc6oAY&form_id=market_data_filters_form&_triggering_element_name=submit_js&_triggering_element_value=&_drupal_ajax=1&ajax_page_state%5Btheme%5D=epex&ajax_page_state%5Btheme_token%5D=&ajax_page_state%5Blibraries%5D=bootstrap%2Fpopover%2Cbootstrap%2Ftooltip%2Ccore%2Fhtml5shiv%2Ccore%2Fjquery.form%2Cepex%2Fglobal-scripts%2Cepex%2Fglobal-styling%2Cepex_core%2Fdata-disclaimer%2Cepex_market_data%2Fauc_status%2Cepex_market_data%2Ffilters%2Cepex_market_data%2Fgraphs%2Cepex_market_data%2Fmap%2Cepex_market_data%2Ftables%2Ceu_cookie_compliance%2Feu_cookie_compliance_default%2Cstatistics%2Fdrupal.statistics%2Csystem%2Fbase`,
+      data: `filters%5Bmodality%5D=Auction&filters%5Bsub_modality%5D=DayAhead&filters%5Btrading_date%5D=${day}%20${month}%20${year}&filters%5Bdelivery_date%5D=${day + 1
+        }%20${month}%20${year}&filters%5Bproduct%5D=60&filters%5Bdata_mode%5D=graph&filters%5Bmarket_area%5D=AT&filters%5Bperiod%5D=${params.period
+        }&triggered_element=filters%5Bdata_mode%5D&first_triggered_date=&form_build_id=form-PtdHvSGPvXq4x0229zJXzzvgM0b6FfyjO2BZWzc6oAY&form_id=market_data_filters_form&_triggering_element_name=submit_js&_triggering_element_value=&_drupal_ajax=1&ajax_page_state%5Btheme%5D=epex&ajax_page_state%5Btheme_token%5D=&ajax_page_state%5Blibraries%5D=bootstrap%2Fpopover%2Cbootstrap%2Ftooltip%2Ccore%2Fhtml5shiv%2Ccore%2Fjquery.form%2Cepex%2Fglobal-scripts%2Cepex%2Fglobal-styling%2Cepex_core%2Fdata-disclaimer%2Cepex_market_data%2Fauc_status%2Cepex_market_data%2Ffilters%2Cepex_market_data%2Fgraphs%2Cepex_market_data%2Fmap%2Cepex_market_data%2Ftables%2Ceu_cookie_compliance%2Feu_cookie_compliance_default%2Cstatistics%2Fdrupal.statistics%2Csystem%2Fbase`,
     }
 
     try {
@@ -267,11 +258,7 @@ export default class ElectrcitiesController {
 
       const { trading_date, delivery_date } = request.body()
 
-      // http://127.0.01:3333/app/v1/electrcite/data
-      // http://127.0.01:3333/app/v1/electrcite/data
-      // const phpFileUrl = 'http://127.0.01:3333/electricite-base-data'
-      //const phpFileUrl = 'http://127.0.01:3333/electricite-base-data'
-      const phpFileUrl = `http://127.0.01:8000/electricity?trading_date=${trading_date}&delivery_date=${delivery_date}`
+      const phpFileUrl = `http://127.0.0.1:8000/electricity?trading_date=${trading_date}&delivery_date=${delivery_date}`
       // const phpFileUrl = 'http://127.0.01:3333/app/v1/electrcite/data'
       const result = await axios.get(phpFileUrl)
 

@@ -2,9 +2,7 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.post('/socket/price', 'PrixesController.priceUpdate')
 Route.get('/sendmailer', 'REST/MailController.alerteSend')
-Route.get('/options', async ({ view }) => {
-  return view.render('pages/db/options')
-}).as('options')
+
 
 Route.get('/', async ({ view }) => {
   return view.render('home')
@@ -99,9 +97,7 @@ Route.group(() => {
     'charbon'
   )
   Route.get('/api/v1/e-market/co2/period/:period', 'Drivers/DriversController.co2').as('co2')
-})
 
-Route.group(() => {
   /*
   |--------------------------------------------------------------------------|
   | 1. Gaz
@@ -143,15 +139,21 @@ Route.group(() => {
   Route.post('alertes/modifier/:id', 'AlertsController.update').as('alerte.update')
   Route.get('alertes/details/:id', 'AlertsController.show').as('alerte.show')
 
-  Route.get('utilisateurs', 'UtilisateursController.index').as('utilisateur.index')
-  Route.get('utilisateur/nouveau', 'UtilisateursController.create').as('utilisateur.create')
-  Route.get('utilisateur/:id/details', 'UtilisateursController.show').as('utilisateur.show')
-  Route.get('utilisateur/:id/editer', 'UtilisateursController.edit').as('utilisateur.edit')
-  Route.post('utilisateur/sauvgarder', 'UtilisateursController.store').as('utilisateur.store')
-  Route.post(':id/utilisateur/modifier', 'UtilisateursController.update').as('utilisateur.update')
-  Route.post('utilisateur/:id/supprimer', 'UtilisateursController.destroy').as(
-    'utilisateur.destroy'
-  )
+
+
+
+
+  // Routes that require role-based permissions
+  // Route.get('admin/dashboard', 'AdminController.dashboard')
+  Route.get('utilisateurs', 'UtilisateursController.index').as('utilisateur.index').middleware(['role:administrateur'])
+  Route.get('utilisateur/nouveau', 'UtilisateursController.create').as('utilisateur.create').middleware(['role:administrateur'])
+  Route.get('utilisateur/:id/details', 'UtilisateursController.show').as('utilisateur.show').middleware(['role:administrateur'])
+  Route.get('utilisateur/:id/editer', 'UtilisateursController.edit').as('utilisateur.edit').middleware(['role:administrateur'])
+  Route.post('utilisateur/sauvgarder', 'UtilisateursController.store').as('utilisateur.store').middleware(['role:administrateur'])
+  Route.post(':id/utilisateur/modifier', 'UtilisateursController.update').as('utilisateur.update').middleware(['role:administrateur'])
+  Route.post('utilisateur/:id/supprimer', 'UtilisateursController.destroy').as('utilisateur.destroy').middleware(['role:administrateur'])
+  Route.get('/options', async ({ view }) => { return view.render('pages/db/options') }).as('options').middleware(['role:administrateur'])
+
 
   Route.get('electricites', 'PrixelecsController.index').as('electricite.index')
   Route.get('electricite/nouveau', 'PrixelecsController.create').as('electricite.create')
@@ -219,7 +221,7 @@ Route.group(() => {
  */
 Route.group(() => {
   Route.group(() => {
-    Route.get('register', 'RegisterController.create')
+    Route.get('register', 'RegisterController.create').as('inscription')
     Route.post('register', 'RegisterController.store')
 
     Route.get('verification/new', 'EmailVerificationController.create')

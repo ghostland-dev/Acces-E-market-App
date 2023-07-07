@@ -69,7 +69,7 @@
         </div>
 
 
-
+        @if( auth.user?.role ==='administrateur' )
         <div class="hidden sm:block sm:ml-6">
           <div class="   line-clamp-1 space-x-4">
 
@@ -152,8 +152,8 @@
           </div>
         </div>
 
-
-        @end
+        @endif
+        @endif
 
       </div>
 
@@ -182,12 +182,15 @@
                   <i class="fa fa-sign-out-alt fa-lg text-slate-800  "></i> Déconnexion
                 </button>
               </form>
-              <a href="/options" data-drawer-target="drawer-swipe" data-drawer-show="drawer-swipe"
+
+              @if( auth.user?.role ==='administrateur' )
+              <a href="{{ route('options')}}" data-drawer-target="drawer-swipe" data-drawer-show="drawer-swipe"
                 data-drawer-placement="bottom" data-drawer-edge="true" data-drawer-edge-offset="bottom-[60px]"
                 aria-controls="drawer-swipe"
                 class="w-full text-left px-6 py-2.5 text-sm text-gray-600 hover:bg-gray-100 rounded-sm hover:text-emerald-600">
                 <i class="fa fa-menu fa-lg text-slate-800  "></i> Options
               </a>
+              @endif
             </div>
           </div>
           @else
