@@ -94,11 +94,11 @@
                 <select id="role" name="role"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                   <option selected="">Selectionnez un role</option>
-                  <option value="administrateur">administrateur</option>
+                  <option value="administrateur">administrateur(rice)</option>
                   <option value="commercial">commercial(e)</option>
-                  <option value="partenaire">commercial(e)</option>
-                  <option value="visiteur">visiteur</option>
-                  <option value="client">client</option>
+                  <option value="partenaire">partenaire</option>
+                  <option value="visiteur">visiteur(euse)</option>
+                  <option value="client">client(e)</option>
                 </select>
               </div>
 
@@ -204,7 +204,7 @@
           <span class=" bg-orange-50 p-2 text-orange-400 font-semibold rounded-md"><i class="fa fa-star  mx-2"
               aria-hidden="true"></i> Super Admin </span>
           @elseif(utilisateur.role === 'visiteur')
-          <span class=" bg-slate-50 p-2 text-slate-400 font-semibold rounded-md">🥸  Visiteur </span>
+          <span class=" bg-slate-50 p-2 text-slate-400 font-semibold rounded-md">🥸 Visiteur </span>
           @elseif(utilisateur.role==='client' )
           <span class=" bg-blue-50 p-2 text-blue-400 font-semibold rounded-md">🕺🏼Client </span>
           @elseif(utilisateur.role==='partenaire' )

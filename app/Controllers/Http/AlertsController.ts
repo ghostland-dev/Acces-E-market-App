@@ -22,9 +22,12 @@ export default class AlertsController {
 
       return view.render('pages/alertes/index', { Alerts })
     } else {
-      const Alerts = await Alert.all()
 
+
+      const Alerts = await Alert.all()
       Alerts.findIndex((alert: Alert) => alert.userId === userId)
+
+
       return view.render('pages/alertes/index', { Alerts })
     }
   }

@@ -30,9 +30,8 @@ export default class GazsController {
     )
     const gaz = await axios.get(
       url +
-        `/api/v1/gaz/futur/start/2022-01-01/end/${encodeURIComponent(dateShort)}/Days/First/${
-          thisYear + 1
-        }`
+      `/api/v1/gaz/futur/start/2022-01-01/end/${encodeURIComponent(dateShort)}/Days/First/${thisYear + 1
+      }`
     )
 
     const gazPrices = await gaz.data.results.items.map((price: { close: any }) => price.close)
@@ -71,7 +70,7 @@ export default class GazsController {
         last: gazLastBaseload,
         variat: Math.round(
           gazData.gaz.prices[gazData.gaz.prices.length - 5] -
-            gazData.gaz.prices[gazData.gaz.prices.length - 1]
+          gazData.gaz.prices[gazData.gaz.prices.length - 1]
         ),
       },
 
@@ -82,7 +81,7 @@ export default class GazsController {
         last: gazData.cal1.prices[gazData.cal1.prices.length - 1],
         variat: Math.round(
           gazData.cal1.prices[gazData.cal1.prices.length - 5] -
-            gazData.cal1.prices[gazData.cal1.prices.length - 1]
+          gazData.cal1.prices[gazData.cal1.prices.length - 1]
         ),
       },
 
@@ -93,7 +92,7 @@ export default class GazsController {
         last: gazData.cal2.prices[gazData.cal2.prices.length - 1],
         variat: Math.round(
           gazData.cal2.prices[gazData.cal2.prices.length - 5] -
-            gazData.cal2.prices[gazData.cal2.prices.length - 1]
+          gazData.cal2.prices[gazData.cal2.prices.length - 1]
         ),
       },
     }
@@ -128,9 +127,8 @@ export default class GazsController {
       maxBodyLength: Infinity,
       url: `https://webservice-eex.gvsi.com/query/json/getDaily/close/offexchtradevolumeeex/onexchtradevolumeeex/tradedatetimegmt/?priceSymbol=%22%2FE.G5BYF${calendar(
         params.cal
-      )}%22&chartstartdate=${params.start}&chartstopdate=${params.end}&dailybarinterval=${
-        params.interval
-      }&aggregatepriceselection=${params.order}`,
+      )}%22&chartstartdate=${params.start}&chartstopdate=${params.end}&dailybarinterval=${params.interval
+        }&aggregatepriceselection=${params.order}`,
       headers: {
         Origin: ' https://www.eex.com',
         Referer: ' https://www.eex.com/',
@@ -164,5 +162,5 @@ export default class GazsController {
       console.error(error)
     }
   }
-  public async alerte({}: HttpContextContract) {}
+  public async alerte({ }: HttpContextContract) { }
 }
