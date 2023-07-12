@@ -5,18 +5,17 @@ import axios, { AxiosResponse } from 'axios'
 const date = new Date().toISOString().slice(0, 10)
 const thisYear = parseInt(new Date().toISOString().slice(2, 4))
 
-const todayDate = new Date().toISOString().slice(0, 10);
+// const todayDate = new Date().toISOString().slice(0, 10);
 
-const lastmonth = new Date().toISOString().slice(0, 10).split('-').map(e => parseInt(e))[1] - 1
-
-
+// const lastmonth = new Date().toISOString().slice(0, 10).split('-').map(e => parseInt(e))[1] - 1
 
 
 export default class DashboardController {
-  public async dashboard({ view, params, request }: HttpContextContract) {
+  public async dashboard({ view, params }: HttpContextContract) {
     try {
       const { id } = params
-      const url = request.protocol() + '://' + request.host()
+      // const url = request.protocol() + '://' + request.host()
+      const url = "http://127.0.0.1:3333"
 
 
       let electrcite: AxiosResponse<any, any>
@@ -102,7 +101,7 @@ export default class DashboardController {
       return view.render('dashboard', { energieData, driversLatest, variations, Alerts })
     } catch (error) {
       // Handle the error or exception here
-      console.error('An error occurred:', error)
+      console.error('une erreur est survenue dans le tableau de bord:', error)
       // You can return an error view or redirect to an error page
       return view.render('errors/error', { error })
     }
