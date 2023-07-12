@@ -6,12 +6,7 @@ def execute_command(command):
     process = subprocess.Popen(command, shell=True)
     process.wait()
 
-# Execute npm install
-execute_command('npm install')
-
-# Execute node ace serve
-execute_command('node ace serve')
-
+ 
 # Activate virtual environment based on the current operating system
 if platform.system() == 'Windows':
     # Windows

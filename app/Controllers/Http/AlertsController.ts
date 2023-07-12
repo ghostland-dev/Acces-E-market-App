@@ -43,7 +43,6 @@ export default class AlertsController {
 
     return view.render('pages.alertes.show', { alert })
   }
-
   public async create({ request, response, session, auth }: HttpContextContract) {
     const { titre, min, max, type, energie, description, nom, prenom, tel, email, siret, actif } =
       request.body()
@@ -76,7 +75,6 @@ export default class AlertsController {
 
     return response.redirect().toRoute('alertes')
   }
-
   public async edit({ view, params, session }: HttpContextContract) {
     const alert = await Alert.findOrFail(params.id)
 
@@ -89,7 +87,6 @@ export default class AlertsController {
 
     return view.render('pages/alertes/edit', { alert })
   }
-
   public async update({ params, request, response, session }: HttpContextContract) {
     const alert = await Alert.findOrFail(params.id)
 
@@ -120,7 +117,6 @@ export default class AlertsController {
 
     return response.redirect().toRoute('alerte.show', { id: alert.id })
   }
-
   public async delete({ params, response }: HttpContextContract) {
     const alert = await Alert.findOrFail(params.id)
 
@@ -128,7 +124,6 @@ export default class AlertsController {
 
     return response.redirect().toRoute('alertes')
   }
-
   public async deleteAll({ response, session }: HttpContextContract) {
     session.flash({
       notification: {

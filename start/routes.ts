@@ -1,12 +1,41 @@
 import Route from '@ioc:Adonis/Core/Route'
+import axios, { AxiosRequestConfig } from 'axios'
 
-Route.post('/socket/price', 'PrixesController.priceUpdate')
 Route.get('/sendmailer', 'REST/MailController.alerteSend')
 
 
 Route.get('/', async ({ view }) => {
   return view.render('home')
 }).as('home')
+Route.get('/test', async ({ response }) => {
+
+  // const config: AxiosRequestConfig = {
+  //   method: 'get',
+  //   maxBodyLength: Infinity,
+  //   url: `https://webservice-eex.gvsi.com/query/json/getDaily/close/offexchtradevolumeeex/onexchtradevolumeeex/tradedatetimegmt/?priceSymbol=${calendarElec(params.calenderier, params.type)}&chartstartdate=${params.start}&chartstopdate=${params.end}&dailybarinterval=Days&aggregatepriceselection=First`,
+  //   headers: {
+  //     'Referer': ' https://www.eex.com/'
+  //   }
+  // }
+  const config: AxiosRequestConfig = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: 'https://webservice-eex.gvsi.com/query/json/getDaily/close/offexchtradevolumeeex/onexchtradevolumeeex/tradedatetimegmt/?priceSymbol= "/E.F7BYF24"&chartstartdate= 2023/01/17&chartstopdate= 2023/07/12&dailybarinterval= Days&aggregatepriceselection= First',
+    headers: {
+      'Referer': ' https://www.eex.com/'
+    }
+  };
+
+  const results = await axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return response.json(results)
+
+})
 
 /*
 |--------------------------------------------------------------------------|
@@ -25,7 +54,7 @@ Route.get('/', async ({ view }) => {
 // }).prefix('/api/v1')
 
 Route.group(() => {
-  Route.get('app/v1/electrcite/data', 'Electrcity/ElectrcitiesController.baseload').as('base.peak')
+  Route.get('/app/v1/electrcite/data', 'Electrcity/ElectrcitiesController.baseload').as('base.peak')
 
   /*
  |--------------------------------------------------------------------------|
@@ -35,7 +64,7 @@ Route.group(() => {
  |--------------------------------------------------------------------------|
  */
 
-  Route.get('marche-electrcite', 'Electrcity/ElectrcitiesController.electricityDetails').as(
+  Route.get('/marche-electrcite', 'Electrcity/ElectrcitiesController.electricityDetails').as(
     'marketElec'
   )
   Route.get('/electricite-base-data', 'Electrcity/ElectrcitiesController.fetchElectricityData').as(
@@ -211,8 +240,7 @@ Route.group(() => {
   Route.post(':id/news/modifier', 'NewsController.update').as('news.update')
   Route.post('news/:id/supprimer', 'NewsController.destroy').as('news.destroy')
 })
-  .prefix('app/data/')
-  .middleware(['auth'])
+
 
 /*
  |--------------------------------------------------------------------------|
