@@ -25,10 +25,10 @@ let mois = parseInt(Actualdate.slice(5, 7)) - 2
 
 
 export default class ElectrcitiesController {
-  public async electricityDetails({ view }: HttpContextContract) {
+  public async electricityDetails({ view, request }: HttpContextContract) {
     try {
-      // const url = request.protocol() + '://' + request.host()
-      const url = "http://127.0.0.1:3333"
+      const url = request.protocol() + '://' + request.host()
+      //const url = "http://127.0.0.1:3333"
       function calculateAverage(numbers: any[]) {
         const sum = numbers.reduce((a, b) => a + b, 0)
         const avg = Math.round(sum / numbers.length)
@@ -216,14 +216,14 @@ export default class ElectrcitiesController {
         return response.data;
       })
       .catch((error) => {
-        console.log("une error est servenue")
+        console.log(`une error est servenue : ${error}`)
       });
 
     return response.json(results)
 
   }
 
-  public async electrcityFuturCals({ response, params, view }: HttpContextContract) {
+  public async electrcityFuturCals({ response, params }: HttpContextContract) {
 
     try {
       const config: AxiosRequestConfig = {

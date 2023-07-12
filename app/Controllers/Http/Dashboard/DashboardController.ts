@@ -11,11 +11,11 @@ const thisYear = parseInt(new Date().toISOString().slice(2, 4))
 
 
 export default class DashboardController {
-  public async dashboard({ view, params }: HttpContextContract) {
+  public async dashboard({ view, params, request }: HttpContextContract) {
     try {
       const { id } = params
-      // const url = request.protocol() + '://' + request.host()
-      const url = "http://127.0.0.1:3333"
+      const url = request.protocol() + '://' + request.host()
+      // const url = "http://127.0.0.1:3333"
 
 
       let electrcite: AxiosResponse<any, any>
