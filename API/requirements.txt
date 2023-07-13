@@ -3,3 +3,4 @@ Flask-RESTful
 Flask-JWT-Extended
 Flasgger
 requests
+mysql-connector-python

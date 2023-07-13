@@ -1,0 +1,64 @@
+@layout('layouts/app')
+
+@section('content')
+<div class="w-full flex flex-grow justify-center py-5">
+
+  <form class=" py-4 px-6  rounded-md shadow bg-white card w-1/2" action="{{ route('coal.update',{id: coal.id}) }}"
+    method="POST">
+    <h1 class="p-2 text-center text-xl bg-slate-50 rounded-md my-3">Modifier le pirx de charbon</h1>
+    {{ csrfField() }}
+
+    <div class="grid lg:grid-cols-2 md:grid-cols-2 gap-2  sm:grid-cols-1 ">
+      <div>
+        <label for="prix" class="block text-sm font-medium text-gray-500">
+          Prix
+        </label>
+        <div class="mt-1">
+          <input id="prix" name="prix" type="number" value="{{ coal.prix }}"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('prix') || '' }}">
+        </div>
+
+        @if (flashMessages.has('errors.prix'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.prix') }}
+        </p>
+        @endif
+      </div>
+
+      <div>
+        <label for="date_enregistrement" class="block text-sm font-medium text-gray-500">
+          Prix d'enregistrement
+        </label>
+        <div class="mt-1">
+          <input id="date_enregistrement" name="date_enregistrement" type="datetime-local"
+            value="{{ coal.date_enregistrement }}"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('date_enregistrement') || '' }}">
+        </div>
+
+        @if (flashMessages.has('errors.date_enregistrement'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.date_enregistrement') }}
+        </p>
+        @endif
+      </div>
+
+
+
+
+    </div>
+    <div>
+      <button type="submit"
+        class="w-full flex justify-center my-4 p-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-emerald-400 hover:bg-emerald-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-700">
+            Mettre à jour
+      </button>
+    </div>
+
+
+  </form>
+
+</div>
+
+
+@endsection
