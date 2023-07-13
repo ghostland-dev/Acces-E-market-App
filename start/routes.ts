@@ -126,6 +126,8 @@ Route.group(() => {
     'charbon'
   )
   Route.get('/api/v1/e-market/co2/period/:period', 'Drivers/DriversController.co2').as('co2')
+  Route.get('/app/v1/e-market/co2/exports', 'Drivers/DriversController.co2export').as('co2export').middleware('auth')
+  Route.get('/app/v1/e-market/co2/nuclaire', 'Drivers/DriversController.nuclear').as('nuclear').middleware('auth')
 
   /*
   |--------------------------------------------------------------------------|

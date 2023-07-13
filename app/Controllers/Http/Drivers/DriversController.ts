@@ -88,6 +88,7 @@ export default class DriversController {
     }
   }
 
+
   public async drivers({ view, params, request }: HttpContextContract) {
     try {
       function avg(numbers: any[]) {
@@ -166,5 +167,15 @@ export default class DriversController {
       // You can return an error view or redirect to an error page
       return view.render('errors/error', { error })
     }
+  }
+
+
+  public async co2export({ view }: HttpContextContract) {
+
+    return view.render('pages/simulateurs/co2export')
+  }
+  public async nuclear({ view }: HttpContextContract) {
+
+    return view.render('pages/simulateurs/nuclear')
   }
 }

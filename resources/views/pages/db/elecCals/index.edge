@@ -1,0 +1,342 @@
+@layout('layouts/app')
+
+@section('content')
+
+<div class="w-full flex justify-evenly">
+  <div class=" ">
+    <button data-modal-target="large-modal" data-modal-toggle="large-modal"
+      class="  my-4 mx-2 text-white bg-emerald-400 hover:bg-emerald-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      type="button">
+      <i class="fa fa-add fa-1x"></i> Nouvaux calendriers d'éléctrcité.
+    </button>
+  </div>
+  <div class="w-1/2 m-4">
+    <form class=" " id="form-search">
+      <label for="default-search"
+        class=" w-1/2 text-sm font-medium text-gray-900 sr-only dark:text-white">Chercher</label>
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </div>
+        <input type="search" id="default-search" name="search"
+          class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="chercher des elecs" required>
+        <button type="submit"
+          class="text-white absolute right-2.5 bottom-2.5 bg-emerald-400 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Chercher</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<!-- Large Modal -->
+<div id="large-modal" tabindex="-1"
+  class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
+  <div class="relative w-full max-w-4xl max-h-full md:h-auto">
+    <!-- Modal content -->
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <section class="bg-white dark:bg-gray-900">
+        <div class="px-4 py-16 mx-auto w-90 lg:pt-8">
+          <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Créer un nouveau prix éléctrcité</h2>
+          <form action="{{ route('electricite.store') }}" method="POST" class="p-3">
+            {{ csrfField() }}
+
+            <div class="grid lg:grid-cols-3  md:grid-cols-2 gap-3 sm:grid-cols-1">
+
+              <div class=" ">
+                <label for="name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Prix Baseload
+                </label>
+                <input type="number" name="prix_base" id="prix_base"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="0.00" value="" required="">
+              </div>
+
+              <div class=" ">
+                <label for="name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Prix peakload
+                </label>
+                <input type="number" name="prix_peak" id="prix_peak"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="0.00" value="" required="">
+              </div>
+
+
+              <div class=" ">
+                <label for="name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Prix
+                  Min</label>
+                <input type="number" name="prix_min_base" id="prix_min_base"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="0.00" value="" required="">
+              </div>
+
+              <div class=" ">
+                <label for="name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Prix
+                  Moyenne</label>
+                <input type="number" name="prix_avg_base" id="prix_avg_base"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="0.00" value="" required="">
+              </div>
+
+
+              <div class=" ">
+                <label for="name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Prix
+                  Max</label>
+                <input type="number" name="prix_max_peak" id="prix_max_peak"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="0.00" value="" required="">
+              </div>
+
+
+              <div class=" ">
+                <label for="name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Prix
+                  Min</label>
+                <input type="number" name="prix_min_peak" id="prix_min_peak"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="0.00" value="" required="">
+              </div>
+
+              <div class=" ">
+                <label for="name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Prix
+                  Moyenne</label>
+                <input type="number" name="prix_avg_peak" id="prix_avg_peak"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="0.00" value="" required="">
+              </div>
+
+
+              <div class=" ">
+                <label for="name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Prix
+                  Max</label>
+                <input type="number" name="prix_max_peak" id="prix_max_peak"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="0.00" value="" required="">
+              </div>
+
+
+              <div class=" ">
+                <label for="name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Date
+                  d'enregistrement </label>
+                <input type="datetime-local" name="date_enregistrement" id="date_enregistrement"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="0.00" value="" required="">
+              </div>
+
+            </div>
+            <button type="submit" 3
+              class="inline-flex items-center bg-emerald-400 px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+              Ajouter
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+  </div>
+</div>
+
+<div class="relative m-5 overflow-x-auto shadow-md sm:rounded-lg ">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-center uppercase text-emerald-400 bg-slate-600 dark:bg-gray-700 dark:text-gray-400">
+      <tr class="">
+
+        <th scope="col" class="px-3 py-3">
+          <div class="flex items-center">
+            Prix Base
+            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" aria-hidden="true"
+                fill="currentColor" viewBox="0 0 320 512">
+                <path
+                  d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+              </svg></a>
+          </div>
+        </th>
+
+        <th scope="col" class="px-3 py-3">
+          <div class="flex items-center">
+            Prix an +1
+            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" aria-hidden="true"
+                fill="currentColor" viewBox="0 0 320 512">
+                <path
+                  d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+              </svg></a>
+          </div>
+        </th>
+
+        <th scope="col" class="px-3 py-3">
+          <div class="flex items-center">
+            Prix an +2
+            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" aria-hidden="true"
+                fill="currentColor" viewBox="0 0 320 512">
+                <path
+                  d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+              </svg></a>
+          </div>
+        </th>
+
+        <th scope="col" class="px-3 py-3">
+          <div class="flex items-center">
+            Prix an +3
+            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" aria-hidden="true"
+                fill="currentColor" viewBox="0 0 320 512">
+                <path
+                  d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+              </svg></a>
+          </div>
+        </th>
+        <th scope="col" class="px-3 py-3">
+          <div class="flex items-center">
+            Prix Peak
+            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" aria-hidden="true"
+                fill="currentColor" viewBox="0 0 320 512">
+                <path
+                  d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+              </svg></a>
+          </div>
+        </th>
+
+        <th scope="col" class="px-3 py-3">
+          <div class="flex items-center">
+            Prix an +1
+            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" aria-hidden="true"
+                fill="currentColor" viewBox="0 0 320 512">
+                <path
+                  d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+              </svg></a>
+          </div>
+        </th>
+
+        <th scope="col" class="px-3 py-3">
+          <div class="flex items-center">
+            Prix an +2
+            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" aria-hidden="true"
+                fill="currentColor" viewBox="0 0 320 512">
+                <path
+                  d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+              </svg></a>
+          </div>
+        </th>
+
+        <th scope="col" class="px-3 py-3">
+          <div class="flex items-center">
+            Prix an +3
+            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" aria-hidden="true"
+                fill="currentColor" viewBox="0 0 320 512">
+                <path
+                  d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+              </svg></a>
+          </div>
+        </th>
+
+        <th scope="col" class="px-3 py-3">
+          <div class="flex items-center">
+            Date d'enregistrement
+            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" aria-hidden="true"
+                fill="currentColor" viewBox="0 0 320 512">
+                <path
+                  d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+              </svg></a>
+          </div>
+        </th>
+
+
+        <th scope="col" class="px-6 py-3">
+          <span class="">Action</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+      @each(elec in Electrecites)
+      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 ">
+
+        <td class="px-6 py-4">
+          {{ elec.prix_base}} €
+        </td>
+
+        <td class="px-6 py-4">
+          {{ elec.prix_min_base}} €
+        </td>
+
+        <td class="px-6 py-4">
+          {{ elec.prix_avg_base}} €
+        </td>
+
+        <td class="px-6 py-4">
+          {{ elec.prix_max_base}} €
+        </td>
+        <td class="px-6 py-4">
+          {{ elec.prix_peak}} €
+        </td>
+
+        <td class="px-6 py-4">
+          {{ elec.prix_min_peak}} €
+        </td>
+
+        <td class="px-6 py-4">
+          {{ elec.prix_avg_peak}} €
+        </td>
+
+        <td class="px-6 py-4">
+          {{ elec.prix_max_peak}} €
+        </td>
+
+
+        <td class="px-6 py-4">
+          {{ elec.date_enregistrement}}
+        </td>
+
+        <td class="flex justify-center px-6 py-4 text-right">
+          <form action="{{ route('electricite.destroy', { id: elec.id }) }}" method="post" id="delete">
+            {{ csrfField() }}
+            <button type="submit"></button>
+          </form>
+
+          <a href="#" class="p-2 mx-1 font-medium text-red-300 bg-red-100 rounded dark:text-orange-500 "
+            onclick="document.getElementById('delete').submit()"><i class="fa fa-trash"></i></a>
+          <a href="{{ route('electricite.edit', { id: elec.id }) }}"
+            class="p-2 mx-1 font-medium text-orange-300 bg-orange-100 rounded dark:text-orange-500 "><i
+              class="fa fa-pen"></i></a>
+
+
+        </td>
+
+
+
+
+      </tr>
+      @endeach
+
+
+
+    </tbody>
+  </table>
+</div>
+
+
+<script>
+  const searchInput = document.querySelector('#default-search');
+  const searchForm = document.querySelector('#form-search');
+
+  searchForm.addEventListener('focus', (e) => {
+    e.preventDefault();
+    const searchQuery = searchInput.value;
+
+    fetch(`/elecs/search?search=${encodeURIComponent(searchQuery)}`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Update the elecs list with the received data
+        // Implement the logic to update the HTML based on the data
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error('An error occurred while fetching search results:', error);
+      });
+  });
+
+</script>
+@endsection

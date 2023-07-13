@@ -12,11 +12,11 @@ let calendar = (year = actualYear) => {
 
 
 export default class GazsController {
-  public async gazDetails({ view }: HttpContextContract) {
+  public async gazDetails({ view, request }: HttpContextContract) {
 
     try {
-      // const url = request.protocol() + '://' + request.host()
-      const url = 'http://127.0.0.1:3333'
+      const url = request.protocol() + '://' + request.host()
+     // const url = 'http://127.0.0.1:3333'
       function calculateAverage(numbers: any[]) {
         const sum = numbers.reduce((a, b) => a + b, 0)
         const avg = Math.round(sum / numbers.length)

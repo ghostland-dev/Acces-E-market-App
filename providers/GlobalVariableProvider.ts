@@ -1,4 +1,5 @@
 import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
 |
 */
 export default class GlobalVariableProvider {
-  constructor(protected app: ApplicationContract) {}
+  constructor(protected app: ApplicationContract) { }
 
   public register() {
     // Register your own bindings
@@ -32,6 +33,16 @@ export default class GlobalVariableProvider {
 
   public async ready() {
     // App is ready
+    hooks: {
+      onReady: async (ctx: HttpContextContract) => {
+        // Set the view global here
+        ctx.view.share({
+          key: 'value', // Replace 'key' with the name you want to use in the views
+          // Add other key-value pairs as needed
+        })
+      }
+    }
+
   }
 
   public async shutdown() {

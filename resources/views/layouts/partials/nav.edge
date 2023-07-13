@@ -60,15 +60,22 @@
           </div>
         </div>
 
+
         <div class="hidden sm:block sm:ml-6">
+          <div class="bg-white rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
+            <a href="{{ route('co2export') }}"
+              class="  text-emerald-400   hover:text-emerald-600 text-sm font-medium h-2">
+              Émissions & Exports </a>
+          </div>
+        </div>
+
+    <div class="hidden sm:block sm:ml-6">
           <div class="bg-white rounded-md p-1 px-4 py-2 shadow-sm  line-clamp-1 space-x-4">
             <a href="{{ route('alertes') }}"
               class="  text-emerald-400   hover:text-emerald-600 text-sm font-medium h-2">
               Alertes </a>
           </div>
         </div>
-
-
         @if( auth.user?.role ==='administrateur' )
         <div class="hidden sm:block sm:ml-6">
           <div class="   line-clamp-1 space-x-4">
@@ -151,7 +158,6 @@
 
           </div>
         </div>
-
         @endif
         @endif
 

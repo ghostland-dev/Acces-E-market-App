@@ -1,0 +1,192 @@
+@layout('layouts/app')
+
+@section('content')
+<div class="w-full flex flex-grow justify-center py-5">
+
+  <form class=" py-4 px-6  rounded-md shadow bg-white card w-1/2"
+    action="{{ route('electricite.update',{id: electrecite.id}) }}" method="POST">
+    <h1 class="p-2 text-center text-xl bg-slate-50 rounded-md my-3">Modifier le pirx de l'éléctrcité</h1>
+    {{ csrfField() }}
+
+    <div class="grid lg:grid-cols-2 md:grid-cols-2 gap-2  sm:grid-cols-1 ">
+      <div>
+        <label for="prix_base" class="block text-sm font-medium text-gray-500">
+          Baseload
+        </label>
+        <div class="mt-1">
+          <input id="prix_base" name="prix_base" type="number" value="{{ electrecite.prix_base }}"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('prix_base') || '' }}">
+        </div>
+
+        @if (flashMessages.has('errors.prix_base'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.prix_base') }}
+        </p>
+        @endif
+      </div>
+
+
+
+
+
+
+      <div>
+        <label for="prix_min_base" class="block text-sm font-medium text-gray-500">
+          Max Peakload
+        </label>
+        <div class="mt-1">
+          <input id="prix_min_base" name="prix_min_base" type="number" value="{{ electrecite.prix_min_base }}"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('prix_min_base') || '' }}">
+        </div>
+
+        @if (flashMessages.has('errors.prix_min_base'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.prix_min_base') }}
+        </p>
+        @endif
+      </div>
+
+
+      <div>
+        <label for="prix_avg_base" class="block text-sm font-medium text-gray-500">
+          Moyenne Peakload
+        </label>
+        <div class="mt-1">
+          <input id="prix_avg_base" name="prix_avg_base" type="number" value="{{ electrecite.prix_avg_base }}"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('prix_avg_base') || '' }}">
+        </div>
+
+        @if (flashMessages.has('errors.prix_avg_base'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.prix_avg_base') }}
+        </p>
+        @endif
+      </div>
+
+
+      <div>
+        <label for="prix_max_base" class="block text-sm font-medium text-gray-500">
+          Min Peakload
+        </label>
+        <div class="mt-1">
+          <input id="prix_max_base" name="prix_max_base" type="number" value="{{ electrecite.prix_max_base }}"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('prix_max_base') || '' }}">
+        </div>
+
+        @if (flashMessages.has('errors.prix_max_base'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.prix_max_base') }}
+        </p>
+        @endif
+      </div>
+
+      <div>
+        <label for="prix_peak" class="block text-sm font-medium text-gray-500">
+          Peakload
+        </label>
+        <div class="mt-1">
+          <input id="prix_peak" name="prix_peak" type="number" value="{{ electrecite.prix_peak }}"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('prix_peak') || '' }}">
+        </div>
+
+        @if (flashMessages.has('errors.prix_peak'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.prix_peak') }}
+        </p>
+        @endif
+      </div>
+
+      <div>
+        <label for="prix_min_peak" class="block text-sm font-medium text-gray-500">
+          Min Baseload
+        </label>
+        <div class="mt-1">
+          <input id="prix_min_peak" name="prix_min_peak" type="number" value="{{ electrecite.prix_min_peak }}"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('prix_min_peak') || '' }}">
+        </div>
+
+        @if (flashMessages.has('errors.prix_min_peak'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.prix_min_peak') }}
+        </p>
+        @endif
+      </div>
+
+
+      <div>
+        <label for="prix_avg_peak" class="block text-sm font-medium text-gray-500">
+          Moyenne Baseload
+        </label>
+        <div class="mt-1">
+          <input id="prix_avg_peak" name="prix_avg_peak" type="number" value="{{ electrecite.prix_avg_peak }}"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('prix_avg_peak') || '' }}">
+        </div>
+
+        @if (flashMessages.has('errors.prix_avg_peak'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.prix_avg_peak') }}
+        </p>
+        @endif
+      </div>
+
+
+      <div>
+        <label for="prix_max_peak" class="block text-sm font-medium text-gray-500">
+          Max Baseload
+        </label>
+        <div class="mt-1">
+          <input id="prix_max_peak" name="prix_max_peak" type="number" value="{{ electrecite.prix_max_peak }}"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('prix_max_peak') || '' }}">
+        </div>
+
+        @if (flashMessages.has('errors.prix_max_peak'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.prix_max_peak') }}
+        </p>
+        @endif
+      </div>
+
+      <div>
+        <label for="date_enregistrement" class="block text-sm font-medium text-gray-500">
+          Prix d'enregistrement
+        </label>
+        <div class="mt-1">
+          <input id="date_enregistrement" name="date_enregistrement" type="datetime-local"
+            value="{{ electrecite.date_enregistrement }}"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+            value="{{ flashMessages.get('date_enregistrement') || '' }}">
+        </div>
+
+        @if (flashMessages.has('errors.date_enregistrement'))
+        <p class="text-xs text-red-500 mt-1">
+          {{ flashMessages.get('errors.date_enregistrement') }}
+        </p>
+        @endif
+      </div>
+
+
+
+
+    </div>
+    <div>
+      <button type="submit"
+        class="w-full flex justify-center my-4 p-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-emerald-400 hover:bg-emerald-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-700">
+        Mettre à jour
+      </button>
+    </div>
+
+
+  </form>
+
+</div>
+
+
+@endsection
