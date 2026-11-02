@@ -1,4 +1,4 @@
-# Access E-Market
+# Energy Market
 
 Energy market web application built with AdonisJS, with a companion Python data API.
 
@@ -20,8 +20,8 @@ Energy market web application built with AdonisJS, with a companion Python data 
 ## Getting Started
 
 ```bash
-git clone https://github.com/ghostland-dev/access-emarket.git
-cd access-emarket
+git clone https://github.com/ghostland-dev/energy-market-adonis.git
+cd energy-market-adonis
 python -m venv .venv && source .venv/bin/activate
 pip install -r API/requirements.txt
 python app.py
